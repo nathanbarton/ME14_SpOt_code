@@ -1,4 +1,4 @@
- #include <avr/io.h>
+#include <avr/io.h>
 
 #include <Wire.h>
 
@@ -40,7 +40,8 @@ void setup() {
   digitalWrite(PIN_DECAY, LOW);
   digitalWrite(PIN_nRESET, HIGH);
 
-  digitalWrite(PIN_I0, HIGH);
+  digitalWrite(PIN_I2, HIGH);
+  digitalWrite(PIN_I1, HIGH);
   
   //Wire.begin();
 }
@@ -51,11 +52,11 @@ void loop() {
   count++;
   digitalWrite(BLINKPIN,HIGH);
   digitalWrite(BLINKPIN2,LOW);
-  digitalWrite(PIN_PHASE, LOW);
+  //digitalWrite(PIN_PHASE, LOW);
   delay(PERIOD);
   digitalWrite(BLINKPIN,LOW);
   digitalWrite(BLINKPIN2,HIGH);
-  digitalWrite(PIN_PHASE, HIGH);
+ // digitalWrite(PIN_PHASE, HIGH);
   delay(PERIOD);
 
   
