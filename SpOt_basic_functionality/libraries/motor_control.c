@@ -30,7 +30,7 @@
 // Data Structures:		None
 // Limitations:			None.
 // Known Bugs:			None.
-// Special Notes:		Disables the reset pin and sets decay mode to LOW
+// Special Notes:		Disables the reset pin and sets decay mode to Fast (HIGH)
 //
 // Author:			Nathan Barton
 // Last Modified:	2019-05-25
@@ -50,8 +50,8 @@ void motor_control_init(void)
 	// control input pins
 	pinMode(PIN_nFAULT, INPUT);
 	
-	//set decay mode to low and disable reset
-	digitalWrite(PIN_DECAY, LOW);
+	//set decay mode to fast and disable reset
+	digitalWrite(PIN_DECAY, HIGH);
 	digitalWrite(PIN_nRESET, HIGH);
 }
 
