@@ -59,6 +59,8 @@ void loop() {
     Serial1.print(motorSpeed);
     Serial1.print("\r");
 
+    set_motor_current(motorSpeed);
+    
     if(led_state == false)
     {
       led_state = true;
