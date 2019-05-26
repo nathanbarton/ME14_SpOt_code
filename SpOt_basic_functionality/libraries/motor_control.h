@@ -33,3 +33,5 @@ void motor_control_init(void);
 void motor_control_enable(void);
 void motor_control_disable(void);
 void set_motor_current(byte level);
+
+#include "motor_control.c"

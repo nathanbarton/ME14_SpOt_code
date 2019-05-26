@@ -18,6 +18,7 @@
 //
 //  Revision History:
 //     2019-05-25   Nathan T Barton      Initial revision
+//     2019-05-26   Nathan T Barton      added initial setup to motor_control_init
 
 
 // --------------------------------------------------------------------------------
@@ -29,7 +30,7 @@
 // Data Structures:		None
 // Limitations:			None.
 // Known Bugs:			None.
-// Special Notes:		None.
+// Special Notes:		Disables the reset pin and sets decay mode to LOW
 //
 // Author:			Nathan Barton
 // Last Modified:	2019-05-25
@@ -48,6 +49,10 @@ void motor_control_init(void)
 	pinMode(PIN_I0, OUTPUT);
 	// control input pins
 	pinMode(PIN_nFAULT, INPUT);
+	
+	//set decay mode to low and disable reset
+	digitalWrite(PIN_DECAY, LOW);
+	digitalWrite(PIN_nRESET, HIGH);
 }
 
 // --------------------------------------------------------------------------------
