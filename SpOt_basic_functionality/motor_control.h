@@ -18,7 +18,11 @@
 //
 //  Revision History:
 //     2019-05-25   Nathan T Barton      Initial revision
+//     2019-05-27   Nathan T Barton      modified code file structure
 
+//local includes
+#include <arduino.h>
+#include "SpOt_board.h"
 
 // -------------------------------
 // Program Constants
@@ -32,6 +36,5 @@
 void motor_control_init(void);
 void motor_control_enable(void);
 void motor_control_disable(void);
-void set_motor_current(byte level);
+void set_motor_current(int level);
 
-#include "motor_control.c"

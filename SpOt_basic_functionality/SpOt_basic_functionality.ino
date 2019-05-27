@@ -15,8 +15,8 @@
 //  Revision History:
 //     2019-05-26   Nathan T Barton      Initial revision
 
-#include "libraries/SpOt_board.h"
-#include "libraries/motor_control.h"
+#include "SpOt_board.h"
+#include "motor_control.h"
 
 //global constants
 #define MAX_SPEED         25

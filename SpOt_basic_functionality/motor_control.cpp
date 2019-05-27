@@ -1,5 +1,5 @@
 // ----------------------------------------
-//      motor_control.c
+//      motor_control.cpp
 //      ME14 Spring 2019
 //      Author: Nathan T Barton
 // ----------------------------------------
@@ -19,7 +19,9 @@
 //  Revision History:
 //     2019-05-25   Nathan T Barton      Initial revision
 //     2019-05-26   Nathan T Barton      added initial setup to motor_control_init
+//     2019-05-27   Nathan T Barton      modified code file structure, converted to cpp
 
+#include "motor_control.h"
 
 // --------------------------------------------------------------------------------
 // Procedure:			motor_control_init

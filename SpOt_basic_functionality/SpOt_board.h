@@ -10,7 +10,10 @@
 //
 //  Revision History:
 //     2019-05-25   Nathan T Barton      Initial revision
+//     2019-05-27   Nathan T Barton      modified code file structure
 
+//local includes
+#include <arduino.h>
 
 // -------------------------------
 // Motor Controller Pins (DRV8840)
