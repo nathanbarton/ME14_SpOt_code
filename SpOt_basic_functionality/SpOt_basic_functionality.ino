@@ -5,8 +5,12 @@
 // ----------------------------------------
 // This program demonstrates the basic functionality of the SpOt robot for
 //    ME14.  The program sets the motor current based on serial input received
-//    from an HC-05 bluetooth module 
+//    from an HC-05 bluetooth module.  
 //
+//  Serial Commands:
+//    q     - increment motor current
+//    a     - decrement motor current
+//    space - set motor current to 0
 //
 //  Revision History:
 //     2019-05-26   Nathan T Barton      Initial revision
