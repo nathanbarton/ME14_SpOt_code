@@ -19,7 +19,7 @@
 #include "motor_control.h"
 
 //global constants
-#define MAX_SPEED         25
+#define MAX_SPEED         75
 #define SPEED_INCREMENT   5
 #define REFRESH_PERIOD    200
 
