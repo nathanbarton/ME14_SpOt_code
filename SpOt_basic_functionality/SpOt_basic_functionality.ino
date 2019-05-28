@@ -15,21 +15,23 @@
 //  Revision History:
 //     2019-05-26   Nathan T Barton      Initial revision
 //     2019-05-28   Nathan T Barton      added motor speed calculation
+//     2019-05-28   Nathan T Barton      refactored motorSpeed to motorCurrent to better reflect purpose
 
 #include "SpOt_board.h"
 #include "motor_control.h"
 #include "encoder_position.h"
 
 //global constants
-#define MAX_SPEED         75
-#define SPEED_INCREMENT   5
+#define MAX_CURRENT         75
+#define CURRENT_INCREMENT   5
 #define REFRESH_PERIOD    200   //in ms
+#define BAUD_RATE         9600
 
 #define ENCODER_CPR       16*30
 
 //global variables
 int serialValue = 0;    //holds the character last received from serial
-int motorSpeed = 0;     //current motor speed
+int motorCurrent = 0;     //present motor current
 
 extern volatile long encoderPosition;
 
@@ -41,10 +43,10 @@ long lastEncoderPosition = 0;
 void setup() {
   //initialize motor controller
   motor_control_init();    //initialize pins
-  set_motor_current(motorSpeed);  //set motor speed to 0 initially
+  set_motor_current(motorCurrent);  //set motor current to 0 initially
   motor_control_enable();
   
-  Serial1.begin(9600);
+  Serial1.begin(BAUD_RATE);
 
   //setup status LED
   pinMode(PIN_LED_2, OUTPUT);
@@ -65,24 +67,24 @@ void loop() {
     //read incoming data
     serialValue = Serial1.read();
     //parse read value 
-    if(serialValue == 'q' && motorSpeed < MAX_SPEED)
+    if(serialValue == 'q' && motorCurrent < MAX_CURRENT )
     {
-      //increase speed
-      motorSpeed += SPEED_INCREMENT;
+      //increase current
+      motorCurrent += CURRENT_INCREMENT;
     }
-    if(serialValue == 'a' && motorSpeed > (MAX_SPEED*(-1)))
+    if(serialValue == 'a' && motorCurrent > (MAX_CURRENT *(-1)))
     {
-      //decrease speed
-      motorSpeed -= SPEED_INCREMENT;
+      //decrease current
+      motorCurrent -= CURRENT_INCREMENT;
     }
     if(serialValue == ' ')
     {
-      //set speed to 0
-      motorSpeed = 0;
+      //set current to 0
+      motorCurrent = 0;
     }
 
     //update motor current output
-    set_motor_current(motorSpeed);
+    set_motor_current(motorCurrent);
   }
 
   //check if time to refresh display
@@ -98,7 +100,7 @@ void loop() {
     //output current motor power level
     Serial1.print("\033[2J");
     Serial1.print("motor power level: ");
-    Serial1.print(motorSpeed);
+    Serial1.print(motorCurrent);
     Serial1.print("\r\n");
     //output current motor speed and position
     Serial1.print("motor position: ");
@@ -108,7 +110,7 @@ void loop() {
     Serial1.print(motorSpeed);    
 
     //set motor power level (ensure that no discrepancy exists between output pins and motorSpeed)
-    set_motor_current(motorSpeed);
+    set_motor_current(motorCurrent);
 
     //toggle the LED
     if(led_state == false)
