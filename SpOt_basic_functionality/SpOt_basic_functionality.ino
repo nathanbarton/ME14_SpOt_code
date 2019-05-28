@@ -14,22 +14,28 @@
 //
 //  Revision History:
 //     2019-05-26   Nathan T Barton      Initial revision
+//     2019-05-28   Nathan T Barton      added motor speed calculation
 
 #include "SpOt_board.h"
 #include "motor_control.h"
+#include "encoder_position.h"
 
 //global constants
 #define MAX_SPEED         75
 #define SPEED_INCREMENT   5
-#define REFRESH_PERIOD    200
+#define REFRESH_PERIOD    200   //in ms
+
+#define ENCODER_CPR       16*30
 
 //global variables
 int serialValue = 0;    //holds the character last received from serial
 int motorSpeed = 0;     //current motor speed
 
+extern volatile long encoderPosition;
+
 unsigned long lastRefreshTime = 0;   //time since periodic serial output has been refreshed
 bool led_state = false;   //boolean for blinking status LED to show that the code is running
-
+long lastEncoderPosition = 0;
 
 
 void setup() {
@@ -43,6 +49,11 @@ void setup() {
   //setup status LED
   pinMode(PIN_LED_2, OUTPUT);
   digitalWrite(PIN_LED_2, HIGH);
+
+  //set up encoder
+  encoder_init();
+  //initialize encoder position
+  encoder_position_set(0);
   
 }
 
@@ -70,6 +81,7 @@ void loop() {
       motorSpeed = 0;
     }
 
+    //update motor current output
     set_motor_current(motorSpeed);
   }
 
@@ -77,11 +89,23 @@ void loop() {
   if(millis()-lastRefreshTime >= REFRESH_PERIOD)
   {
     lastRefreshTime += REFRESH_PERIOD;
-    //output current motor speed
+    
+    //calculate motor speed (in RPM)
+    float motorSpeed;
+    motorSpeed = ((float)encoderPosition-(float)lastEncoderPosition)/(ENCODER_CPR)/ REFRESH_PERIOD*1000*60;
+    lastEncoderPosition = encoderPosition;
+    
+    //output current motor power level
     Serial1.print("\033[2J");
     Serial1.print("motor power level: ");
     Serial1.print(motorSpeed);
-    Serial1.print("\r");
+    Serial1.print("\r\n");
+    //output current motor speed and position
+    Serial1.print("motor position: ");
+    Serial1.print(encoderPosition);
+    Serial1.print("\r\n");
+    Serial1.print("motor speed: ");
+    Serial1.print(motorSpeed);    
 
     //set motor power level (ensure that no discrepancy exists between output pins and motorSpeed)
     set_motor_current(motorSpeed);
