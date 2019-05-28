@@ -27,7 +27,7 @@
 // -------------------------------
 // Program Constants
 // -------------------------------
-#define ENCODER_POLARITY   HIGH   //define the forward direction as ENC_B high when ENC_A goes high
+#define ENCODER_POLARITY   LOW   //define the forward direction as ENC_B low when ENC_A goes high
 
 // -------------------------------
 // Function Prototype Declarations
