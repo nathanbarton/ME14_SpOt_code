@@ -25,7 +25,7 @@
 #define MAX_CURRENT         75
 #define CURRENT_INCREMENT   5
 #define REFRESH_PERIOD    200   //in ms
-#define BAUD_RATE         9600
+#define BAUD_RATE         115200
 
 #define ENCODER_CPR       16*30
 
@@ -108,6 +108,7 @@ void loop() {
     Serial1.print("\r\n");
     Serial1.print("motor speed: ");
     Serial1.print(motorSpeed);    
+    Serial1.print("\r\n");
 
     //set motor power level (ensure that no discrepancy exists between output pins and motorSpeed)
     set_motor_current(motorCurrent);
