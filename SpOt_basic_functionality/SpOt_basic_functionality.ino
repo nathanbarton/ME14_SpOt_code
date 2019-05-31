@@ -23,7 +23,7 @@
 #include "encoder_position.h"
 
 //global constants
-#define MAX_CURRENT         75
+#define MAX_CURRENT         100
 #define CURRENT_INCREMENT   5
 #define REFRESH_PERIOD    200   //in ms
 #define BAUD_RATE         115200
