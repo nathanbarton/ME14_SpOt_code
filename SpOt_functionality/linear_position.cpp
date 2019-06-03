@@ -23,16 +23,10 @@
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
 
 //Local Includes
-#include <arduino.h>
 #include "linear_position.h"
-
-//Program Constants
-#define spool_Radius = 5   // The radius of the wheels for SpOt
-#define maximum_Position = 200 // The total length of the ramp
-
 // Global Variables
 extern volatile long encoderPosition; //current pulse count
-long linearPosition = 0; //Normalized linear position along a ramp
+float linearPosition = 0; //Normalized linear position along a ramp
 
 // Procedure:			linear_position_set
 // Description:		Sets the linear position to be used in PID
@@ -40,7 +34,8 @@ long linearPosition = 0; //Normalized linear position along a ramp
 //
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-05-28
+
 void linear_position_set()
 {
-  linearPosition = ((encoderPosition / 16) * 2 * PI * spool_Radius)/maximum_Position
+  linearPosition = ((((encoderPosition / 16)/30)/3) * 2 * PI * spool_Radius)
 }
