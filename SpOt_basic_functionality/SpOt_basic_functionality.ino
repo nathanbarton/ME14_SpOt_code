@@ -78,7 +78,7 @@ void Compute()
   double dErr = (error - lastErr) ;
 
   //PID output computation
-  Output = kp*error + ki * errSum + kd * dInput;
+  Output = kp*error + ki * ITerm + kd * dInput;
 
   //
   lastInput = Input;
