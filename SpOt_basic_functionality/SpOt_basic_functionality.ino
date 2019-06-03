@@ -34,6 +34,10 @@
 int serialValue = 0;    //holds the character last received from serial
 int motorCurrent = 0;     //present motor current
 
+double errSum, lastInput;
+double kp, ki, kd;
+double Input, Output, Setpoint;
+
 extern volatile long encoderPosition;
 
 unsigned long lastRefreshTime = 0;   //time since periodic serial output has been refreshed
@@ -60,6 +64,33 @@ void setup() {
   //initialize encoder position
   encoder_position_set(0);
   
+}
+
+void Compute()
+{
+  //might not be necessary to include following if statement
+  
+  double error = Setpoint - Input;
+  errSum += (error);
+  double dInput = Input - lastInput;
+  double dErr = (error - lastErr) ;
+
+  //PID output computation
+  Output = kp*error + ki * errSum + kd * dInput;
+
+  //
+  lastInput = Input;
+  lastTime = millis();
+
+}
+
+void SetTunings(double Kp, double Ki, double Kd)
+{
+  double SampleTimeInSec = ((double)REFRESH_PERIOD)/1000;
+
+  kp = Kp;
+  ki = Ki * SampleTimeInSec;
+  kd = Kd / SampleTimeInSec;
 }
 
 void loop() {
