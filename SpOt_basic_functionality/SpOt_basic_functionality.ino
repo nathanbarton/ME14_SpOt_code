@@ -34,7 +34,7 @@
 int serialValue = 0;    //holds the character last received from serial
 int motorCurrent = 0;     //present motor current
 
-double errSum, lastErr;
+double errSum, lastInput;
 double kp, ki, kd;
 double Input, Output, Setpoint;
 
@@ -71,14 +71,15 @@ void Compute()
   //might not be necessary to include following if statement
   
   double error = Setpoint - Input;
-  errSum += (error );
+  errSum += (error);
+  double dInput = Input - lastInput;
   double dErr = (error - lastErr) ;
 
   //PID output computation
-  Output = kp*error + ki * errSum + kd * dErr;
+  Output = kp*error + ki * errSum + kd * dInput;
 
   //
-  lastErr = error;
+  lastInput = Input;
   lastTime = millis();
 
 }
