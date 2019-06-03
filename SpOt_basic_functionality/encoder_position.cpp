@@ -17,8 +17,8 @@
 //	Local Functions:
 //		enc_ISR - interrupt service routine for state change of PIN_ENC_A
 //
-//  Known Bugs/Limitations:	Encoder only reads 1/4 of max encoder resolution by only
-//							looking at rising edge of one encoder pin A
+//  Known Bugs/Limitations:	Encoder only reads 1/4 of max possible encoder resolution by 
+//							only looking at rising edge of one encoder pin (pin A)
 //
 //  Revision History:
 //     2019-05-28   Nathan T Barton      Initial revision
