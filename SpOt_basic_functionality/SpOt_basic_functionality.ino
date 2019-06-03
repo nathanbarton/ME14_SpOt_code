@@ -69,10 +69,10 @@ void setup() {
 void Compute()
 {
   //might not be necessary to include following if statement
-  double timeChange = millis() - lastRefreshTime;
+  
   double error = Setpoint - Input;
-  errSum += (error * timeChange);
-  double dErr = (error - lastErr) / timeChange;
+  errSum += (error );
+  double dErr = (error - lastErr) ;
 
   //PID output computation
   Output = kp*error + ki * errSum + kd * dErr;
