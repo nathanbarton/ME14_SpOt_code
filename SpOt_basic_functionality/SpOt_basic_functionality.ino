@@ -34,9 +34,10 @@
 int serialValue = 0;    //holds the character last received from serial
 int motorCurrent = 0;     //present motor current
 
-double errSum, lastInput;
+
 double kp, ki, kd;
 double Input, Output, Setpoint;
+double ITerm, lastInput;
 
 extern volatile long encoderPosition;
 
@@ -71,7 +72,8 @@ void Compute()
   //might not be necessary to include following if statement
   
   double error = Setpoint - Input;
-  errSum += (error);
+
+  ITerm += (ki * error);
   double dInput = Input - lastInput;
   double dErr = (error - lastErr) ;
 
