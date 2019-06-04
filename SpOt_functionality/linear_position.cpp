@@ -21,6 +21,7 @@
 //
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
+//     2019-06-03   Maheck Jerez Terceros      Legibility changes 
 
 //Local Includes
 #include "linear_position.h"
@@ -37,5 +38,7 @@ float linearPosition = 0; //Normalized linear position along a ramp
 
 void linear_position_set()
 {
-  linearPosition = ((((encoderPosition / 16)/30)/3) * 2 * PI * SPOOL_RADIUS);
+  linearPosition = ((((encoderPosition / PULSES_PER_ROTATION)
+                        /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
+                         * 2 * PI * SPOOL_RADIUS);
 }

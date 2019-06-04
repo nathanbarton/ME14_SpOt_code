@@ -21,6 +21,7 @@
 //
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
+//     2019-06-03   Maheck Jerez Terceros      Legibility revision
 
 //Local Includes
 #include <arduino.h>
@@ -28,7 +29,10 @@
 
 //Program Constants
 #define SPOOL_RADIUS		 5     // The radius of the wheels for SpOt (inches)
-#define MAXIMUM_POSITION	 200   // The total length of the ramp (in inches)
-
+#define INTERNAL_MOTOR_GEARING	 30   // Gear Ratio inside Pololu motor (30:1)
+#define PULLEY_GEAR_RATIO   3   // Pulley Ratio (3:1)
+#define MAXIMUM_LENGTH    200   // Maximum Length of ramp
+#define PULSES_PER_ROTATION   16 // Number of pulses registered by encoder for a
+//                                 full rotation
 // Function Prototype Declarations
 void linear_position_set();
