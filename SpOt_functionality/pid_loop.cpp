@@ -20,9 +20,9 @@
 //Local Includes
 #include "pid_loop.h"
 
-// Procedure:			
-// Description:		
-// Special Notes:		
+// Procedure:
+// Description:
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
@@ -37,14 +37,21 @@ double outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
 
- // Procedure:	Call compute at some interval in the 
+ // Procedure:	Call compute at some interval in the
 // main loop to calculate Kp, Kd, Ki values
 // Description:		Computes values for kp, ki, kd
-// Special Notes:		
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
-
+void Setpoint_set(float newpoint){
+  if(newpoint> 600) {
+    Setpoint = 600;
+  }
+  else{
+   Setpoint = newpoint
+  }
+}
 void Compute()
 {
    if(!inAuto) return;
@@ -58,13 +65,13 @@ void Compute()
       if(ITerm > outMax) ITerm= outMax;
       else if(ITerm < outMin) ITerm= outMin;
       double dInput = (Input - lastInput);
- 
+
       /*Compute PID Output*/
       Output = kp * error + ITerm- kd * dInput;
-      
+
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
- 
+
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
@@ -72,10 +79,10 @@ void Compute()
 }
 
 
- 
- // Procedure:			
+
+ // Procedure:
 // Description:		sets the values of kp, ki, kd
-// Special Notes:		
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
@@ -83,12 +90,12 @@ void Compute()
 void SetTunings(double Kp, double Ki, double Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
- 
+
   double SampleTimeInSec = ((double)SampleTime)/1000;
    kp = Kp;
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
- 
+
   if(controllerDirection ==REVERSE)
    {
       kp = (0 - kp);
@@ -97,9 +104,9 @@ void SetTunings(double Kp, double Ki, double Kd)
    }
 }
 
-// Procedure:			
+// Procedure:
 // Description:		changes the rate of sampling
-// Special Notes:		
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
@@ -116,9 +123,9 @@ void SetSampleTime(int NewSampleTime)
    }
 }
 
-// Procedure:			
-// Description:		
-// Special Notes:		
+// Procedure:
+// Description:
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
@@ -128,21 +135,21 @@ void SetOutputLimits(double Min, double Max)
    if(Min > Max) return;
    outMin = Min;
    outMax = Max;
- 
+
    if(Output > outMax) Output = outMax;
    else if(Output < outMin) Output = outMin;
- 
+
    if(ITerm > outMax) ITerm= outMax;
    else if(ITerm < outMin) ITerm= outMin;
 }
 
-// Procedure:			
-// Description: Allows user to turn PID loop on and off 		
-// Special Notes:		
+// Procedure:
+// Description: Allows user to turn PID loop on and off
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
- 
+
 void SetMode(int Mode)
 {
     bool newAuto = (Mode == AUTOMATIC);
@@ -153,13 +160,13 @@ void SetMode(int Mode)
     inAuto = newAuto;
 }
 
-// Procedure:			
-// Description:		
-// Special Notes:		
+// Procedure:
+// Description:
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
- 
+
 void Initialize()
 {
    lastInput = Input;
@@ -168,9 +175,9 @@ void Initialize()
    else if(ITerm < outMin) ITerm= outMin;
 }
 
-// Procedure:			
-// Description:		
-// Special Notes:		
+// Procedure:
+// Description:
+// Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
@@ -180,46 +187,46 @@ void SetControllerDirection(int Direction)
    controllerDirection = Direction;
 }
 
-// Procedure: get_kp 
-// Description:   
+// Procedure: get_kp
+// Description:
 // Special Notes: Returns double
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_kp(void) 
+double get_kp(void)
 {
   return kp;
 }
 
-// Procedure: get_ki   
-// Description:   
-// Special Notes: Returns double 
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
-double get_ki(void) 
-{
-  return ki;
-}
-
-// Procedure: get_kd  
-// Description:   
+// Procedure: get_ki
+// Description:
 // Special Notes: Returns double
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_kd(void) 
+double get_ki(void)
+{
+  return ki;
+}
+
+// Procedure: get_kd
+// Description:
+// Special Notes: Returns double
+//
+// Author:      Mike Brown
+// Last Modified: 2019-06-04
+double get_kd(void)
 {
   return kd;
 }
 
-// Procedure: get_setpoint  
-// Description:   
-// Special Notes: Returns double 
+// Procedure: get_setpoint
+// Description:
+// Special Notes: Returns double
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_setpoint(void) 
+double get_setpoint(void)
 {
   return Setpoint;
 }
