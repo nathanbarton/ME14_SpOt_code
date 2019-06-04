@@ -16,11 +16,14 @@
 //    CURRENT_INCREMENT (int) - Value that motorCurrent can increase/decrease by.
 //    KP_INCREMENT, KI_INCREMENT, KD_INCREMENT (double) - Value that kp, ki, and kd
 //                  can increase/decrease by, respectively.
+//    Setpoint (double) - Desired setpoint for the PID loop.
+//    SETPOINT_INCREMENT (double) - Value that the setpoint can increase/decrease by.
 //
 //  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
+//     2019-06-04   Mike Brown      Added changing PID setpoint
 
 //local includes
 #include <arduino.h>
@@ -40,6 +43,8 @@
 #define INCREASE_KD 'd'
 #define DECREASE_KD 'f'
 #define KILL       'k'   // command to activate kill switch
+#define INCREASE_SETPOINT 's'
+#define DECREASE_SETPOINT 'x'
 
 // -------------------------------
 // Function Prototype Declarations

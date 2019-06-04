@@ -16,11 +16,14 @@
 //    CURRENT_INCREMENT (int) - Value that motorCurrent can increase/decrease by.
 //    KP_INCREMENT, KI_INCREMENT, KD_INCREMENT (double) - Value that kp, ki, and kd
 //                  can increase/decrease by, respectively.
+//    Setpoint (double) - Desired setpoint for the PID loop.
+//    SETPOINT_INCREMENT (double) - Value that the setpoint can increase/decrease by.
 //
-//  Known Bugs/Limitations:	None.
+//  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
+//     2019-06-04   Mike Brown      Added changing PID setpoint
 
 #include "serial_communication.h"
 
@@ -30,6 +33,8 @@ extern bool cmd_received;
 extern int MAX_CURRENT;
 extern int CURRENT_INCREMENT;
 extern double KP_INCREMENT, KI_INCREMENT, KD_INCREMENT;
+extern double Setpoint;
+extern double SETPOINT_INCREMENT;
 
 // --------------------------------------------------------------------------------
 // Procedure:			parse_serial
@@ -43,7 +48,7 @@ extern double KP_INCREMENT, KI_INCREMENT, KD_INCREMENT;
 // Special Notes:		None.
 //
 // Author:			Mike Brown
-// Last Modified:	2019-06-03
+// Last Modified:	2019-06-04
 void parse_serial(char serialValue)
 {
     //parse read value 
@@ -96,6 +101,16 @@ void parse_serial(char serialValue)
     {
       // enter kill switch function 
       // < insert kill function call, when kill function is created >
+    }
+    if(serialValue == INCREASE_SETPOINT) 
+    {
+      //increase derivative gain
+      Setpoint += SETPOINT_INCREMENT;
+    }
+    if(serialValue == DECREASE_SETPOINT) 
+    {
+      //decrease derivative gain
+      Setpoint -= SETPOINT_INCREMENT;
     }
 
     //update motor current output
