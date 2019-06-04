@@ -15,22 +15,21 @@
 //  Global Variables:
 //		encoderPosition (long) - absolute encoder position in terms of encoder pulses
 //								 (16 pulses per motor revolution, before gearbox)
-//    linPosition (long) - process variable to be used for the PID control loop,
-//                 linear position along ramp to be maintained
 //
 //
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
 //     2019-06-03   Maheck Jerez Terceros      Legibility changes
+//     2019-06-03   Maheck Jerez Terceros      get function changes
 
 //Local Includes
 #include "linear_position.h"
 // Global Variables
 extern volatile long encoderPosition; //current pulse count
-float linearPosition = 0; // Linear position along a ramp
+
 
 // Procedure:			linear_position_set
-// Description:		Sets the linear position to be used in PID
+// Description:		calculates the linear position to be used in PID (flaot)
 // Special Notes:		None.
 //
 // Author:			Maheck Jerez Terceros
@@ -38,8 +37,7 @@ float linearPosition = 0; // Linear position along a ramp
 
 void linear_position_get()
 {
-  linearPosition = ((((encoderPosition / PULSES_PER_ROTATION)
+  return (((((float)encoderPosition / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
                          * 2 * PI * SPOOL_RADIUS);
-  return linearPosition;
-}
+  }

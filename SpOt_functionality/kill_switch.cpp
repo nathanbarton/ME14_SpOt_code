@@ -11,7 +11,7 @@
 //  reset()
 //
 #include "kill_switch.h"
-//  Global Variables:
+//  Local Variables:
 bool activeState = true;
 //
 //
