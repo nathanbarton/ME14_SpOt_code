@@ -31,10 +31,10 @@ double kp, ki, kd;
 int SampleTime = 1000; //1 sec
 double outMin, outMax;
 bool inAuto = false;
-
 int controllerDirection = DIRECT;
 
- // Procedure:			
+ // Procedure:	Call compute at some interval in the 
+// main loop to calculate Kp, Kd, Ki values
 // Description:		Computes values for kp, ki, kd
 // Special Notes:		
 //
@@ -65,6 +65,8 @@ void Compute()
       lastTime = now;
    }
 }
+
+
  
  // Procedure:			
 // Description:		sets the values of kp, ki, kd
