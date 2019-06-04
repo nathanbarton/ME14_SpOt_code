@@ -33,9 +33,9 @@ float linearPosition = 0; //Normalized linear position along a ramp
 // Special Notes:		None.
 //
 // Author:			Maheck Jerez Terceros
-// Last Modified:	2019-05-28
+// Last Modified:	2019-06-02
 
 void linear_position_set()
 {
-  linearPosition = ((((encoderPosition / 16)/30)/3) * 2 * PI * spool_Radius)
+  linearPosition = ((((encoderPosition / 16)/30)/3) * 2 * PI * SPOOL_RADIUS);
 }
