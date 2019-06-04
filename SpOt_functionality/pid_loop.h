@@ -9,7 +9,10 @@
 // a linear position.
 //
 //  The public functions are:
-//    
+//    	  get_kp - return the current kp value (returns double)
+//        get_ki - return the current ki value (returns double)
+//        get_kd - return the current kd value (returns double)
+//        get_setpoint - return the current setpoint value (returns double)
 //
 //  Global Variables:
 //    
@@ -39,3 +42,7 @@ void SetOutputLimits(double Min, double Max);
 void SetMode(int Mode);
 void Initialize();
 void SetControllerDirection(int Direction);
+double get_kp(void);
+double get_ki(void);
+double get_kd(void);
+double get_setpoint(void);
