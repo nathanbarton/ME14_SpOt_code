@@ -27,3 +27,9 @@
 
 // Function Prototype Declarations
 void Compute();
+void SetTunings(double Kp, double Ki, double Kd);
+void SetSampleTime(int NewSampleTime);
+void SetOutputLimits(double Min, double Max);
+void SetMode(int Mode);
+void Initialize();
+void SetControllerDirection(int Direction);
