@@ -1,5 +1,5 @@
 // ----------------------------------------
-//      pid_loop.h
+//      pid_loop.cpp
 //      ME14 Spring 2019
 //      Author: Brittany Wylie
 // ----------------------------------------
@@ -9,21 +9,26 @@
 // a linear position.
 //
 //  The public functions are:
-//    
 //
 //  Global Variables:
-//    
-//
+
 
 //Local Includes
-#include <arduino.h>
+#include "pid_loop.h"
+// Global Variables
+extern volatile long encoderPosition; //current pulse count
+float linearPosition = 0; //Normalized linear position along a ramp
 
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-02
 
-//Program Constants
-#define REFRESH_PERIOD    200   //in ms
-#define KP_INCREMENT      0.01
-#define KI_INCREMENT      0.01
-#define KD_INCREMENT      0.01
-
-// Function Prototype Declarations
-void Compute();
+void linear_position_set()
+{
+  linearPosition = ((((encoderPosition / PULSES_PER_ROTATION)
+                        /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
+                         * 2 * PI * SPOOL_RADIUS);
+}
