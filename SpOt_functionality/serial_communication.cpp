@@ -10,21 +10,15 @@
 //
 //  The public variables are:
 //    kp, ki, kd (double) - Gain values for the P, I, and D terms, respectively.
-//    cmd_received (bool) - Flag signalling when the serial command has been received.
 //    Setpoint (double) - Desired setpoint for the PID loop.
 //
 //  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
-//     2019-06-04   Mike Brown      Added changing PID setpoint
-//     2019-06-04   Mike Brown      Removed direct user motor control, 
+//     2019-06-04   Mike Brown      Added changing PID setpoint, removed user direct motor control 
 
 #include "serial_communication.h"
-
-extern double kp, ki, kd;
-extern bool cmd_received;
-extern double Setpoint;
 
 // --------------------------------------------------------------------------------
 // Procedure:			parse_serial
@@ -32,7 +26,7 @@ extern double Setpoint;
 //                              gain values, stop/kill commands, and changing robot's setpoint.
 // Arguments:			serialValue (char) - Character received by the Serial port 
 // Return Values:		None.
-// Data Structures:		None.
+// Data Structures:	None.
 // Limitations:			None.
 // Known Bugs:			None.
 // Special Notes:		None.
@@ -40,7 +34,13 @@ extern double Setpoint;
 // Author:			Mike Brown
 // Last Modified:	2019-06-04
 void parse_serial(char serialValue)
-{
+{   
+    // change function names below when get functions are added in pid_loop.cpp
+    double setpoint = getSetpoint();
+    double kp = getKp();
+    double ki = getKi();
+    double kd = getKd();
+
     if(serialValue == INCREASE_KP) 
     {
       //increase proportional gain
@@ -79,12 +79,16 @@ void parse_serial(char serialValue)
     if(serialValue == INCREASE_SETPOINT) 
     {
       //increase derivative gain
-      Setpoint += SETPOINT_INCREMENT;
+      setpoint += SETPOINT_INCREMENT;
     }
     if(serialValue == DECREASE_SETPOINT) 
     {
       //decrease derivative gain
-      Setpoint -= SETPOINT_INCREMENT;
+      setpoint -= SETPOINT_INCREMENT;
     }
+
+    SetTunings(kp, ki, kd);
+
+    
     
 }

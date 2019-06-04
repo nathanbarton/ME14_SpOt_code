@@ -10,7 +10,6 @@
 //
 //  The public variables are:
 //    kp, ki, kd (double) - Gain values for the P, I, and D terms, respectively.
-//    cmd_received (bool) - Flag signalling when the serial command has been received.
 //    Setpoint (double) - Desired setpoint for the PID loop.
 //
 //  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
