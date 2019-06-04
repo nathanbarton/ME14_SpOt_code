@@ -36,10 +36,10 @@
 void parse_serial(char serialValue)
 {   
     // change function names below when get functions are added in pid_loop.cpp
-    double setpoint = getSetpoint();
-    double kp = getKp();
-    double ki = getKi();
-    double kd = getKd();
+    double setpoint = get_setpoint();
+    double kp = get_kp();
+    double ki = get_ki();
+    double kd = get_kd();
 
     if(serialValue == INCREASE_KP) 
     {
@@ -88,7 +88,5 @@ void parse_serial(char serialValue)
     }
 
     SetTunings(kp, ki, kd);
-
-    
     
 }
