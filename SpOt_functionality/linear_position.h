@@ -18,7 +18,7 @@
 //							looking at rising edge of one encoder pin A
 //
 //  Revision History:
-//     2019-05-28   Nathan T Barton      Initial revision
+//     2019-05-28   Maheck Jerez Terceros      Initial revision
 
 //Local Includes
 #include <arduino.h>
@@ -29,4 +29,4 @@
 #define maximum_Position = 200 // The total length of the ramp
 
 // Function Prototype Declarations
-void linear_position_set()
+void linear_position_set();
