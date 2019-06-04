@@ -20,10 +20,16 @@
 
 
 //Program Constants
-#define REFRESH_PERIOD    200   //in ms
+
 #define KP_INCREMENT      0.01
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
+ 
+#define MANUAL 0
+#define AUTOMATIC 1
+ 
+#define DIRECT 0
+#define REVERSE 1
 
 // Function Prototype Declarations
 void Compute();
