@@ -83,7 +83,7 @@ void SetTunings(double Kp, double Ki, double Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
  
-  double SampleTimeInSec = ((double)REFRESH_PERIOD)/1000;
+  double SampleTimeInSec = ((double)(millis()-lastTime))/1000;
    kp = Kp;
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
