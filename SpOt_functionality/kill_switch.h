@@ -8,8 +8,8 @@
 //
 //  The public functions are:
 //		kill() - Kills all motor control to SpOt
-//    reset() - Resets system for restarting PID control
-//
+//    kill_reset() - Resets system for restarting PID control
+//    get_activeState() - returns state of system with respect to kill
 //  Global Variables:
 //
 //  Known Bugs/Limitations:
@@ -19,5 +19,6 @@
 
 
 //public functions
-void reset();
+void kill_reset();
 void kill();
+voide get_activeState();

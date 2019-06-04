@@ -16,15 +16,15 @@
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
-//     2019-06-04   Mike Brown      Added changing PID setpoint, removed user direct motor control 
+//     2019-06-04   Mike Brown      Added changing PID setpoint, removed user direct motor control
 
 #include "serial_communication.h"
 
 // --------------------------------------------------------------------------------
 // Procedure:			parse_serial
-// Description:			This procedure parses the robot's serial commands, including updated PID 
+// Description:			This procedure parses the robot's serial commands, including updated PID
 //                              gain values, stop/kill commands, and changing robot's setpoint.
-// Arguments:			serialValue (char) - Character received by the Serial port 
+// Arguments:			serialValue (char) - Character received by the Serial port
 // Return Values:		None.
 // Data Structures:	None.
 // Limitations:			None.
@@ -34,59 +34,64 @@
 // Author:			Mike Brown
 // Last Modified:	2019-06-04
 void parse_serial(char serialValue)
-{   
+{
     // change function names below when get functions are added in pid_loop.cpp
-    double setpoint = get_setpoint();
-    double kp = get_kp();
-    double ki = get_ki();
-    double kd = get_kd();
+    float setpoint = get_setpoint();
+    float kp = get_kp();
+    float ki = get_ki();
+    float kd = get_kd();
 
-    if(serialValue == INCREASE_KP) 
+    if(serialValue == INCREASE_KP)
     {
       //increase proportional gain
   	  kp += KP_INCREMENT;
     }
-    if(serialValue == DECREASE_KP) 
+    if(serialValue == DECREASE_KP)
     {
       //decrease proportional gain
   	  kp -= KP_INCREMENT;
     }
-    if(serialValue == INCREASE_KI) 
+    if(serialValue == INCREASE_KI)
     {
       //increase integral gain
   	  ki += KI_INCREMENT;
     }
-    if(serialValue == DECREASE_KI) 
+    if(serialValue == DECREASE_KI)
     {
       //decrease integral gain
   	  ki -= KI_INCREMENT;
     }
-    if(serialValue == INCREASE_KD) 
+    if(serialValue == INCREASE_KD)
     {
       //increase derivative gain
   	  kd += KD_INCREMENT;
     }
-    if(serialValue == DECREASE_KD) 
+    if(serialValue == DECREASE_KD)
     {
       //decrease derivative gain
   	  kd -= KD_INCREMENT;
     }
-    if(serialValue == KILL) 
+    if(serialValue == KILL)
     {
-      // enter kill switch function 
-      // < insert kill function call, when kill function is created >
+      // enter kill switch function
+      kill();
     }
-    if(serialValue == INCREASE_SETPOINT) 
+    if(serialValue == RESET)
+    {
+      // enter kill switch function
+      kill_reset();
+    }
+    if(serialValue == INCREASE_SETPOINT)
     {
       //increase derivative gain
       setpoint += SETPOINT_INCREMENT;
     }
-    if(serialValue == DECREASE_SETPOINT) 
+    if(serialValue == DECREASE_SETPOINT)
     {
       //decrease derivative gain
       setpoint -= SETPOINT_INCREMENT;
     }
 
     SetTunings(kp, ki, kd);
-    
+
 }
