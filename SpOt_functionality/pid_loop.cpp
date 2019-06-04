@@ -9,10 +9,10 @@
 // a linear position.
 //
 //  The public functions are:
-//        get_kp - return the current kp value (returns float)
-//        get_ki - return the current ki value (returns float)
-//        get_kd - return the current kd value (returns float)
-//        get_setpoint - return the current setpoint value (returns float)
+//        get_kp - return the current kp value (returns double)
+//        get_ki - return the current ki value (returns double)
+//        get_kd - return the current kd value (returns double)
+//        get_setpoint - return the current setpoint value (returns double)
 //
 //  Global Variables:
 
@@ -29,12 +29,13 @@
 
 /*working variables*/
 unsigned long lastTime;
-float Input, Output, Setpoint;
-float ITerm, lastInput;
-float kp, ki, kd;
-float outMin, outMax;
+double Input, Output, Setpoint;
+double ITerm, lastInput;
+double kp, ki, kd;
+int SampleTime = 1000; //1 sec
+double outMin, outMax;
 bool inAuto = false;
-
+int controllerDirection = DIRECT;
 
  // Procedure:	Call compute at some interval in the
 // main loop to calculate Kp, Kd, Ki values
@@ -56,20 +57,15 @@ void Compute()
    if(!inAuto) return;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
-   if(timeChange>=REFRESH_PERIOD)
+   if(timeChange>=SampleTime)
    {
       /*Compute all the working error variables*/
-      float error = Setpoint - Input;
+      double error = Setpoint - Input;
       ITerm += (ki * error);
       if(ITerm > outMax) ITerm= outMax;
       else if(ITerm < outMin) ITerm= outMin;
-<<<<<<< HEAD
       double dInput = (Input - lastInput);
 
-=======
-      float dInput = (Input - lastInput);
- 
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
       /*Compute PID Output*/
       Output = kp * error + ITerm- kd * dInput;
 
@@ -83,23 +79,17 @@ void Compute()
 }
 
 
-<<<<<<< HEAD
 
  // Procedure:
-=======
- 
-// Procedure:			
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
 // Description:		sets the values of kp, ki, kd
 // Special Notes:
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
 
-void SetTunings(float Kp, float Ki, float Kd)
+void SetTunings(double Kp, double Ki, double Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
-<<<<<<< HEAD
 
   double SampleTimeInSec = ((double)SampleTime)/1000;
    kp = Kp;
@@ -120,18 +110,18 @@ void SetTunings(float Kp, float Ki, float Kd)
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
-=======
- 
-  float SampleTimeInSec = ((float)(millis()-lastTime))/1000;
-   kp = Kp;
-   ki = Ki * SampleTimeInSec;
-   kd = Kd / SampleTimeInSec;
- 
 
+void SetSampleTime(int NewSampleTime)
+{
+   if (NewSampleTime > 0)
+   {
+      double ratio  = (double)NewSampleTime
+                      / (double)SampleTime;
+      ki *= ratio;
+      kd /= ratio;
+      SampleTime = (unsigned long)NewSampleTime;
+   }
 }
-
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
-
 
 // Procedure:
 // Description:
@@ -140,7 +130,7 @@ void SetTunings(float Kp, float Ki, float Kd)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
 
-void SetOutputLimits(float Min, float Max)
+void SetOutputLimits(double Min, double Max)
 {
    if(Min > Max) return;
    outMin = Min;
@@ -185,7 +175,6 @@ void Initialize()
    else if(ITerm < outMin) ITerm= outMin;
 }
 
-<<<<<<< HEAD
 // Procedure:
 // Description:
 // Special Notes:
@@ -205,21 +194,10 @@ void SetControllerDirection(int Direction)
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
 double get_kp(void)
-=======
-
-// Procedure: get_kp 
-// Description:   
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
-float get_kp(void) 
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
 {
   return kp;
 }
 
-<<<<<<< HEAD
 // Procedure: get_ki
 // Description:
 // Special Notes: Returns double
@@ -227,20 +205,10 @@ float get_kp(void)
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
 double get_ki(void)
-=======
-// Procedure: get_ki   
-// Description:   
-// Special Notes: Returns float 
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
-float get_ki(void) 
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
 {
   return ki;
 }
 
-<<<<<<< HEAD
 // Procedure: get_kd
 // Description:
 // Special Notes: Returns double
@@ -248,20 +216,10 @@ float get_ki(void)
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
 double get_kd(void)
-=======
-// Procedure: get_kd  
-// Description:   
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
-float get_kd(void) 
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
 {
   return kd;
 }
 
-<<<<<<< HEAD
 // Procedure: get_setpoint
 // Description:
 // Special Notes: Returns double
@@ -269,15 +227,6 @@ float get_kd(void)
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
 double get_setpoint(void)
-=======
-// Procedure: get_setpoint  
-// Description:   
-// Special Notes: Returns float 
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
-float get_setpoint(void) 
->>>>>>> b12bf39187589d0acb83a3598b0020aa3e87b8d9
 {
   return Setpoint;
 }
