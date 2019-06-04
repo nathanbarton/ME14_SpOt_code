@@ -32,7 +32,6 @@ unsigned long lastTime;
 double Input, Output, Setpoint;
 double ITerm, lastInput;
 double kp, ki, kd;
-int SampleTime = 1000; //1 sec
 double outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
@@ -50,7 +49,7 @@ void Compute()
    if(!inAuto) return;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
-   if(timeChange>=SampleTime)
+   if(timeChange>=REFRESH_PERIOD)
    {
       /*Compute all the working error variables*/
       double error = Setpoint - Input;
@@ -84,7 +83,7 @@ void SetTunings(double Kp, double Ki, double Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
  
-  double SampleTimeInSec = ((double)SampleTime)/1000;
+  double SampleTimeInSec = ((double)REFRESH_PERIOD)/1000;
    kp = Kp;
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
@@ -97,24 +96,7 @@ void SetTunings(double Kp, double Ki, double Kd)
    }
 }
 
-// Procedure:			
-// Description:		changes the rate of sampling
-// Special Notes:		
-//
-// Author:			Brittany Wylie
-// Last Modified:	2019-06-04
 
-void SetSampleTime(int NewSampleTime)
-{
-   if (NewSampleTime > 0)
-   {
-      double ratio  = (double)NewSampleTime
-                      / (double)SampleTime;
-      ki *= ratio;
-      kd /= ratio;
-      SampleTime = (unsigned long)NewSampleTime;
-   }
-}
 
 // Procedure:			
 // Description:		
