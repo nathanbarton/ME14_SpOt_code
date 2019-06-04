@@ -54,13 +54,14 @@ void Compute()
    {
       /*Compute all the working error variables*/
       double error = Setpoint - Input;
-      ITerm+= (ki * error);
+      ITerm += (ki * error);
       if(ITerm > outMax) ITerm= outMax;
       else if(ITerm < outMin) ITerm= outMin;
       double dInput = (Input - lastInput);
  
       /*Compute PID Output*/
       Output = kp * error + ITerm- kd * dInput;
+      
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
  
