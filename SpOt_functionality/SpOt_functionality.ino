@@ -21,6 +21,7 @@
 #include "SpOt_board.h"
 #include "motor_control.h"
 #include "encoder_position.h"
+#include "pid_loop.h"
 
 //global constants
 #define MAX_CURRENT         100
