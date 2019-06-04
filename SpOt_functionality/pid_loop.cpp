@@ -9,6 +9,10 @@
 // a linear position.
 //
 //  The public functions are:
+//        get_kp - return the current kp value (returns double)
+//        get_ki - return the current ki value (returns double)
+//        get_kd - return the current kd value (returns double)
+//        get_setpoint - return the current setpoint value (returns double)
 //
 //  Global Variables:
 
@@ -176,4 +180,48 @@ void Initialize()
 void SetControllerDirection(int Direction)
 {
    controllerDirection = Direction;
+}
+
+// Procedure: get_kp 
+// Description:   
+// Special Notes: Returns double
+//
+// Author:      Mike Brown
+// Last Modified: 2019-06-04
+double get_kp(void) 
+{
+  return kp;
+}
+
+// Procedure: get_ki   
+// Description:   
+// Special Notes: Returns double 
+//
+// Author:      Mike Brown
+// Last Modified: 2019-06-04
+double get_ki(void) 
+{
+  return ki;
+}
+
+// Procedure: get_kd  
+// Description:   
+// Special Notes: Returns double
+//
+// Author:      Mike Brown
+// Last Modified: 2019-06-04
+double get_kd(void) 
+{
+  return kd;
+}
+
+// Procedure: get_setpoint  
+// Description:   
+// Special Notes: Returns double 
+//
+// Author:      Mike Brown
+// Last Modified: 2019-06-04
+double get_setpoint(void) 
+{
+  return Setpoint;
 }
