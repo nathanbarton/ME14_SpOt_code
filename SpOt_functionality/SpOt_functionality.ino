@@ -29,6 +29,9 @@
 #define BAUD_RATE         115200
 
 #define ENCODER_CPR       16*30
+#define KP_INCREMENT      0.01
+#define KI_INCREMENT      0.01
+#define KD_INCREMENT      0.01
 
 //global variables
 int serialValue = 0;    //holds the character last received from serial
@@ -125,6 +128,14 @@ void loop() {
     //set flag for command received LED
     cmd_received = true;
   }
+
+  //check if a serial character is available
+    if(Serial1.available() > 0)
+    {
+      //read incoming data
+      serialValue = Serial1.read();
+      parse_serial(serialValue);
+    }
 
   //check if time to refresh display
   if(millis()-lastRefreshTime >= REFRESH_PERIOD)
