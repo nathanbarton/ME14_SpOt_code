@@ -9,10 +9,13 @@
 // a linear position.
 //
 //  The public functions are:
-//    
+//    	  get_kp - return the current kp value (returns double)
+//        get_ki - return the current ki value (returns double)
+//        get_kd - return the current kd value (returns double)
+//        get_setpoint - return the current setpoint value (returns double)
 //
 //  Global Variables:
-//    
+//
 //
 
 //Local Includes
@@ -24,18 +27,23 @@
 #define KP_INCREMENT      0.01
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
- 
+#define REFRESH_PERIOD 	  200 //ms
+
 #define MANUAL 0
 #define AUTOMATIC 1
- 
+
 #define DIRECT 0
 #define REVERSE 1
 
 // Function Prototype Declarations
 void Compute();
 void SetTunings(double Kp, double Ki, double Kd);
-void SetSampleTime(int NewSampleTime);
+void Setpoint_set(float newpoint);
 void SetOutputLimits(double Min, double Max);
 void SetMode(int Mode);
 void Initialize();
-void SetControllerDirection(int Direction);
+
+double get_kp(void);
+double get_ki(void);
+double get_kd(void);
+double get_setpoint(void);
