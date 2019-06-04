@@ -9,19 +9,17 @@
 // a linear position.
 //
 //  The public functions are:
-//		encoder_init - configure encoder pins for input and attach encoder pin ISR
-//		encoder_position_set - set encoder position to a specified value
+//
+//		linear_position_get - caluclates and returns the linear positoin of SpOt
 //
 //  Global Variables:
-//		encoderPosition (long) - absolute encoder position in terms of encoder pulses
-//								 (16 pulses per motor revolution, before gearbox)
-//    linPosition (long) - process variable to be used for the PID control loop,
-//                 linear position along ramp to be maintained
+
 //
 //
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
 //     2019-06-03   Maheck Jerez Terceros      Legibility revision
+//     2019-06-04   Maheck Jerez Terceros      function name change
 
 //Local Includes
 #include <arduino.h>
@@ -35,4 +33,4 @@
 #define PULSES_PER_ROTATION   16 // Number of pulses registered by encoder for a
 //                                 full rotation
 // Function Prototype Declarations
-void linear_position_set();
+void linear_position_get();

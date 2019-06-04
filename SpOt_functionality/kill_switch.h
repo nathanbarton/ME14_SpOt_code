@@ -3,8 +3,8 @@
 //      ME14 Spring 2019
 //      Author: Maheck Jerez Terceros
 // ----------------------------------------
-// This file includes function prototype declarations for monitoring the motor encoder
-//   on the SpOt drive PCB for the ME14 spool robot project.
+// This file includes function prototype declarations for reset and kill switch
+// functions in case of emergency reset.
 //
 //  The public functions are:
 //		kill() - Kills all motor control to SpOt
