@@ -195,46 +195,28 @@ void SetControllerDirection(int Direction)
    controllerDirection = Direction;
 }
 
-// Procedure: get_kp
-// Description:
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
+//Get functions
 float get_kp(void)
 {
   return kp;
 }
 
-// Procedure: get_ki
-// Description:
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
 float get_ki(void)
 {
   return ki;
 }
 
-// Procedure: get_kd
-// Description:
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
 float get_kd(void)
 {
   return kd;
 }
 
-// Procedure: get_setpoint
-// Description:
-// Special Notes: Returns float
-//
-// Author:      Mike Brown
-// Last Modified: 2019-06-04
 float get_setpoint(void)
 {
   return Setpoint;
+}
+
+float get_output(void)
+{
+	return Output;
 }
