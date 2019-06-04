@@ -5,7 +5,7 @@
 // ----------------------------------------
 // This program demonstrates the basic functionality of the SpOt robot for
 //    ME14.  The program sets the motor current based on serial input received
-//    from an HC-05 bluetooth module.  
+//    from an HC-05 bluetooth module.
 //
 //  Serial Commands:
 //    q     - increment motor current
@@ -35,9 +35,6 @@ int serialValue = 0;    //holds the character last received from serial
 int motorCurrent = 0;     //present motor current
 
 
-double kp, ki, kd;
-double Input, Output, Setpoint;
-double ITerm, lastInput;
 
 extern volatile long encoderPosition;
 
@@ -52,7 +49,7 @@ void setup() {
   motor_control_init();    //initialize pins
   set_motor_current(motorCurrent);  //set motor current to 0 initially
   motor_control_enable();
-  
+
   Serial1.begin(BAUD_RATE);
 
   //setup status LEDs
@@ -64,36 +61,9 @@ void setup() {
   encoder_init();
   //initialize encoder position
   encoder_position_set(0);
-  
-}
-
-void Compute()
-{
-  //might not be necessary to include following if statement
-  
-  double error = Setpoint - Input;
-
-  ITerm += (ki * error);
-  double dInput = Input - lastInput;
-  double dErr = (error - lastErr) ;
-
-  //PID output computation
-  Output = kp*error + ki * ITerm + kd * dInput;
-
-  //
-  lastInput = Input;
-  lastTime = millis();
 
 }
 
-void SetTunings(double Kp, double Ki, double Kd)
-{
-  double SampleTimeInSec = ((double)REFRESH_PERIOD)/1000;
-
-  kp = Kp;
-  ki = Ki * SampleTimeInSec;
-  kd = Kd / SampleTimeInSec;
-}
 
 void loop() {
 
@@ -102,7 +72,7 @@ void loop() {
   {
     //read incoming data
     serialValue = Serial1.read();
-    //parse read value 
+    //parse read value
     if(serialValue == 'q' && motorCurrent < MAX_CURRENT )
     {
       //increase current
@@ -121,7 +91,7 @@ void loop() {
 
     //update motor current output
     set_motor_current(motorCurrent);
-    
+
     //set flag for command received LED
     cmd_received = true;
   }
@@ -130,12 +100,12 @@ void loop() {
   if(millis()-lastRefreshTime >= REFRESH_PERIOD)
   {
     lastRefreshTime += REFRESH_PERIOD;
-    
+
     //calculate motor speed (in RPM)
     float motorSpeed;
     motorSpeed = ((float)encoderPosition-(float)lastEncoderPosition)/(ENCODER_CPR)/ REFRESH_PERIOD*1000*60;
     lastEncoderPosition = encoderPosition;
-    
+
     //output current motor power level
     Serial1.print("\033[2J");
     Serial1.print("motor power level: ");
@@ -146,7 +116,7 @@ void loop() {
     Serial1.print(encoderPosition);
     Serial1.print("\r\n");
     Serial1.print("motor speed: ");
-    Serial1.print(motorSpeed);    
+    Serial1.print(motorSpeed);
     Serial1.print("\r\n");
 
     //set motor power level (ensure that no discrepancy exists between output pins and motorSpeed)
@@ -175,10 +145,10 @@ void loop() {
     }
     //reset command received flag
     cmd_received = false;
-   
-    
-  }
-  
 
-  
+
+  }
+
+
+
 }
