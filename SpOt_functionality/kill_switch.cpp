@@ -1,7 +1,7 @@
 // ----------------------------------------
 //      kill_switch.cpp
 //      ME14 Spring 2019
-//      Author: Brittany Wylie
+//      Author: Maheck Jerez Terceros
 // ----------------------------------------
 // This file includes function definitions and global variables stopping all
 // functionality on the SpOt for safety purposes
