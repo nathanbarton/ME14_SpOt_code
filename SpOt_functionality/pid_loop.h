@@ -24,7 +24,7 @@
 #define KP_INCREMENT      0.01
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
- 
+#define REFRESH_PERIOD 	  200 //ms
 #define MANUAL 0
 #define AUTOMATIC 1
  
