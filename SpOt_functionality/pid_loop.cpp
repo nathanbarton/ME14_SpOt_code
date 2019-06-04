@@ -15,9 +15,6 @@
 
 //Local Includes
 #include "pid_loop.h"
-// Global Variables
-extern volatile long encoderPosition; //current pulse count
-float linearPosition = 0; //Normalized linear position along a ramp
 
 // Procedure:			
 // Description:		
@@ -26,9 +23,157 @@ float linearPosition = 0; //Normalized linear position along a ramp
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void linear_position_set()
+/*working variables*/
+unsigned long lastTime;
+double Input, Output, Setpoint;
+double ITerm, lastInput;
+double kp, ki, kd;
+int SampleTime = 1000; //1 sec
+double outMin, outMax;
+bool inAuto = false;
+ 
+#define MANUAL 0
+#define AUTOMATIC 1
+ 
+#define DIRECT 0
+#define REVERSE 1
+int controllerDirection = DIRECT;
+
+ // Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-02
+
+void Compute()
 {
-  linearPosition = ((((encoderPosition / PULSES_PER_ROTATION)
-                        /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
-                         * 2 * PI * SPOOL_RADIUS);
+   if(!inAuto) return;
+   unsigned long now = millis();
+   int timeChange = (now - lastTime);
+   if(timeChange>=SampleTime)
+   {
+      /*Compute all the working error variables*/
+      double error = Setpoint - Input;
+      ITerm+= (ki * error);
+      if(ITerm > outMax) ITerm= outMax;
+      else if(ITerm < outMin) ITerm= outMin;
+      double dInput = (Input - lastInput);
+ 
+      /*Compute PID Output*/
+      Output = kp * error + ITerm- kd * dInput;
+      if(Output > outMax) Output = outMax;
+      else if(Output < outMin) Output = outMin;
+ 
+      /*Remember some variables for next time*/
+      lastInput = Input;
+      lastTime = now;
+   }
+}
+ 
+ // Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-04
+
+void SetTunings(double Kp, double Ki, double Kd)
+{
+   if (Kp<0 || Ki<0|| Kd<0) return;
+ 
+  double SampleTimeInSec = ((double)SampleTime)/1000;
+   kp = Kp;
+   ki = Ki * SampleTimeInSec;
+   kd = Kd / SampleTimeInSec;
+ 
+  if(controllerDirection ==REVERSE)
+   {
+      kp = (0 - kp);
+      ki = (0 - ki);
+      kd = (0 - kd);
+   }
+}
+
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-04
+
+void SetSampleTime(int NewSampleTime)
+{
+   if (NewSampleTime > 0)
+   {
+      double ratio  = (double)NewSampleTime
+                      / (double)SampleTime;
+      ki *= ratio;
+      kd /= ratio;
+      SampleTime = (unsigned long)NewSampleTime;
+   }
+}
+
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-04
+
+void SetOutputLimits(double Min, double Max)
+{
+   if(Min > Max) return;
+   outMin = Min;
+   outMax = Max;
+ 
+   if(Output > outMax) Output = outMax;
+   else if(Output < outMin) Output = outMin;
+ 
+   if(ITerm > outMax) ITerm= outMax;
+   else if(ITerm < outMin) ITerm= outMin;
+}
+
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-04
+ 
+void SetMode(int Mode)
+{
+    bool newAuto = (Mode == AUTOMATIC);
+    if(newAuto == !inAuto)
+    {  /*we just went from manual to auto*/
+        Initialize();
+    }
+    inAuto = newAuto;
+}
+
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-02
+ 
+void Initialize()
+{
+   lastInput = Input;
+   ITerm = Output;
+   if(ITerm > outMax) ITerm= outMax;
+   else if(ITerm < outMin) ITerm= outMin;
+}
+
+// Procedure:			
+// Description:		
+// Special Notes:		
+//
+// Author:			Brittany Wylie
+// Last Modified:	2019-06-02
+
+void SetControllerDirection(int Direction)
+{
+   controllerDirection = Direction;
 }
