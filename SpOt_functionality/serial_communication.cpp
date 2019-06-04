@@ -9,59 +9,38 @@
 //		parse_serial - Read communication from the serial port
 //
 //  The public variables are:
-//    motorCurrent (int) - Current level of the motor.
 //    kp, ki, kd (double) - Gain values for the P, I, and D terms, respectively.
-//    cmd_received (bool) - Flag signalling when the serial command has been received.
-//    MAX_CURRENT (int) - Maximum current command that can be sent to motor.
-//    CURRENT_INCREMENT (int) - Value that motorCurrent can increase/decrease by.
-//    KP_INCREMENT, KI_INCREMENT, KD_INCREMENT (double) - Value that kp, ki, and kd
-//                  can increase/decrease by, respectively.
+//    Setpoint (double) - Desired setpoint for the PID loop.
 //
-//  Known Bugs/Limitations:	None.
+//  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
+//     2019-06-04   Mike Brown      Added changing PID setpoint, removed user direct motor control 
 
 #include "serial_communication.h"
 
-extern double kp, ki, kd;
-extern int motorCurrent;
-extern bool cmd_received;
-extern int MAX_CURRENT;
-extern int CURRENT_INCREMENT;
-extern double KP_INCREMENT, KI_INCREMENT, KD_INCREMENT;
-
 // --------------------------------------------------------------------------------
 // Procedure:			parse_serial
-// Description:			This procedure parses the robot's serial commands, including 
-//							updated motor current, updated PID gain values, and stop commands.
+// Description:			This procedure parses the robot's serial commands, including updated PID 
+//                              gain values, stop/kill commands, and changing robot's setpoint.
 // Arguments:			serialValue (char) - Character received by the Serial port 
 // Return Values:		None.
-// Data Structures:		None.
+// Data Structures:	None.
 // Limitations:			None.
 // Known Bugs:			None.
 // Special Notes:		None.
 //
 // Author:			Mike Brown
-// Last Modified:	2019-06-03
+// Last Modified:	2019-06-04
 void parse_serial(char serialValue)
-{
-    //parse read value 
-    if(serialValue == INCREASE_CURRENT && motorCurrent < MAX_CURRENT )
-    {
-      //increase current
-      motorCurrent += CURRENT_INCREMENT;
-    }
-    if(serialValue == DECREASE_CURRENT && motorCurrent > (MAX_CURRENT *(-1)))
-    {
-      //decrease current
-      motorCurrent -= CURRENT_INCREMENT;
-    }
-    if(serialValue == STOP)
-    {
-      //set current to 0
-      motorCurrent = 0;
-    }
+{   
+    // change function names below when get functions are added in pid_loop.cpp
+    double setpoint = getSetpoint();
+    double kp = getKp();
+    double ki = getKi();
+    double kd = getKd();
+
     if(serialValue == INCREASE_KP) 
     {
       //increase proportional gain
@@ -97,12 +76,19 @@ void parse_serial(char serialValue)
       // enter kill switch function 
       // < insert kill function call, when kill function is created >
     }
+    if(serialValue == INCREASE_SETPOINT) 
+    {
+      //increase derivative gain
+      setpoint += SETPOINT_INCREMENT;
+    }
+    if(serialValue == DECREASE_SETPOINT) 
+    {
+      //decrease derivative gain
+      setpoint -= SETPOINT_INCREMENT;
+    }
 
-    //update motor current output
-    set_motor_current(motorCurrent);
+    SetTunings(kp, ki, kd);
+
     
-    //set flag for command received LED
-    cmd_received = true;
-  
-
+    
 }

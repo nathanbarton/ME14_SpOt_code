@@ -22,6 +22,7 @@
 #include "motor_control.h"
 #include "encoder_position.h"
 #include "pid_loop.h"
+#include "serial_communication.h"
 
 //global constants
 #define MAX_CURRENT         100
@@ -33,6 +34,7 @@
 #define KP_INCREMENT      0.01
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
+#define SETPOINT_INCREMENT 10.0
 
 //global variables
 int serialValue = 0;    //holds the character last received from serial
