@@ -34,7 +34,7 @@ double ITerm, lastInput;
 double kp, ki, kd;
 double outMin, outMax;
 bool inAuto = false;
-int controllerDirection = DIRECT;
+
 
  // Procedure:	Call compute at some interval in the 
 // main loop to calculate Kp, Kd, Ki values
@@ -88,12 +88,7 @@ void SetTunings(double Kp, double Ki, double Kd)
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
  
-  if(controllerDirection ==REVERSE)
-   {
-      kp = (0 - kp);
-      ki = (0 - ki);
-      kd = (0 - kd);
-   }
+
 }
 
 
