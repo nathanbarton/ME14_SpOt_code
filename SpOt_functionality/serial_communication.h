@@ -27,16 +27,13 @@
 // Program Constants
 // -------------------------------
 // list of SpOt commands
-#define INCREASE_CURRENT 'q'
-#define DECREASE_CURRENT 'a'
-#define STOP '0'         // command to set motor current to zero, but not activate kill switch
 #define INCREASE_KP 'p'
 #define DECREASE_KP 'o'
 #define INCREASE_KI 'i'
 #define DECREASE_KI 'u'
 #define INCREASE_KD 'd'
 #define DECREASE_KD 'f'
-#define KILL       'k'   // command to activate kill switch
+#define KILL       ' '   // command to activate kill switch
 #define INCREASE_SETPOINT 's'
 #define DECREASE_SETPOINT 'x'
 #define KP_INCREMENT      0.01  // amount to increase/decrease proportional gain

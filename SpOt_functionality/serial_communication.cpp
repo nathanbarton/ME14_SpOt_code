@@ -41,11 +41,6 @@ extern double Setpoint;
 // Last Modified:	2019-06-04
 void parse_serial(char serialValue)
 {
-    if(serialValue == STOP)
-    {
-      //set current to 0
-      motorCurrent = 0;
-    }
     if(serialValue == INCREASE_KP) 
     {
       //increase proportional gain
@@ -92,7 +87,4 @@ void parse_serial(char serialValue)
       Setpoint -= SETPOINT_INCREMENT;
     }
     
-    //set flag for command received LED
-    cmd_received = true;
-
 }
