@@ -21,13 +21,13 @@
 //
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
-//     2019-06-03   Maheck Jerez Terceros      Legibility changes 
+//     2019-06-03   Maheck Jerez Terceros      Legibility changes
 
 //Local Includes
 #include "linear_position.h"
 // Global Variables
 extern volatile long encoderPosition; //current pulse count
-float linearPosition = 0; //Normalized linear position along a ramp
+float linearPosition = 0; // Linear position along a ramp
 
 // Procedure:			linear_position_set
 // Description:		Sets the linear position to be used in PID
@@ -36,9 +36,10 @@ float linearPosition = 0; //Normalized linear position along a ramp
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-02
 
-void linear_position_set()
+void linear_position_get()
 {
   linearPosition = ((((encoderPosition / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
                          * 2 * PI * SPOOL_RADIUS);
+  return linearPosition;
 }
