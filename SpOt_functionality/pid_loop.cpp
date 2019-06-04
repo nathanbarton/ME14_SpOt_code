@@ -35,16 +35,11 @@ double kp, ki, kd;
 int SampleTime = 1000; //1 sec
 double outMin, outMax;
 bool inAuto = false;
- 
-#define MANUAL 0
-#define AUTOMATIC 1
- 
-#define DIRECT 0
-#define REVERSE 1
 int controllerDirection = DIRECT;
 
- // Procedure:			
-// Description:		
+ // Procedure:	Call compute at some interval in the 
+// main loop to calculate Kp, Kd, Ki values
+// Description:		Computes values for kp, ki, kd
 // Special Notes:		
 //
 // Author:			Brittany Wylie
@@ -74,9 +69,11 @@ void Compute()
       lastTime = now;
    }
 }
+
+
  
  // Procedure:			
-// Description:		
+// Description:		sets the values of kp, ki, kd
 // Special Notes:		
 //
 // Author:			Brittany Wylie
@@ -100,7 +97,7 @@ void SetTunings(double Kp, double Ki, double Kd)
 }
 
 // Procedure:			
-// Description:		
+// Description:		changes the rate of sampling
 // Special Notes:		
 //
 // Author:			Brittany Wylie
@@ -139,7 +136,7 @@ void SetOutputLimits(double Min, double Max)
 }
 
 // Procedure:			
-// Description:		
+// Description: Allows user to turn PID loop on and off 		
 // Special Notes:		
 //
 // Author:			Brittany Wylie
