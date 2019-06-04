@@ -9,10 +9,10 @@
 // a linear position.
 //
 //  The public functions are:
-//        get_kp - return the current kp value (returns double)
-//        get_ki - return the current ki value (returns double)
-//        get_kd - return the current kd value (returns double)
-//        get_setpoint - return the current setpoint value (returns double)
+//        get_kp - return the current kp value (returns float)
+//        get_ki - return the current ki value (returns float)
+//        get_kd - return the current kd value (returns float)
+//        get_setpoint - return the current setpoint value (returns float)
 //
 //  Global Variables:
 
@@ -29,13 +29,28 @@
 
 /*working variables*/
 unsigned long lastTime;
-double Input, Output, Setpoint;
-double ITerm, lastInput;
-double kp, ki, kd;
+float Input, Output, Setpoint;
+float ITerm, lastInput;
+float kp, ki, kd;
 int SampleTime = 1000; //1 sec
-double outMin, outMax;
+float outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
+
+// Procedure:	Set the new Setpoint for use in PID Loop
+// Description:		Implements a check at around 50 feet to cap setpoint distance
+// Special Notes:
+//
+// Author:			Maheck Jerez Terceros
+// Last Modified:	2019-06-04
+void Setpoint_set(float newpoint){
+  if(newpoint> 600) {
+    Setpoint = 600;
+  }
+  else{
+   Setpoint = newpoint;
+  }
+}
 
  // Procedure:	Call compute at some interval in the
 // main loop to calculate Kp, Kd, Ki values
@@ -44,14 +59,7 @@ int controllerDirection = DIRECT;
 //
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
-void Setpoint_set(float newpoint){
-  if(newpoint> 600) {
-    Setpoint = 600;
-  }
-  else{
-   Setpoint = newpoint
-  }
-}
+
 void Compute()
 {
    if(!inAuto) return;
@@ -60,11 +68,11 @@ void Compute()
    if(timeChange>=SampleTime)
    {
       /*Compute all the working error variables*/
-      double error = Setpoint - Input;
+      float error = Setpoint - Input;
       ITerm += (ki * error);
       if(ITerm > outMax) ITerm= outMax;
       else if(ITerm < outMin) ITerm= outMin;
-      double dInput = (Input - lastInput);
+      float dInput = (Input - lastInput);
 
       /*Compute PID Output*/
       Output = kp * error + ITerm- kd * dInput;
@@ -87,11 +95,11 @@ void Compute()
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
 
-void SetTunings(double Kp, double Ki, double Kd)
+void SetTunings(float Kp, float Ki, float Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
 
-  double SampleTimeInSec = ((double)SampleTime)/1000;
+  float SampleTimeInSec = ((float)SampleTime)/1000;
    kp = Kp;
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
@@ -115,8 +123,8 @@ void SetSampleTime(int NewSampleTime)
 {
    if (NewSampleTime > 0)
    {
-      double ratio  = (double)NewSampleTime
-                      / (double)SampleTime;
+      float ratio  = (float)NewSampleTime
+                      / (float)SampleTime;
       ki *= ratio;
       kd /= ratio;
       SampleTime = (unsigned long)NewSampleTime;
@@ -130,7 +138,7 @@ void SetSampleTime(int NewSampleTime)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
 
-void SetOutputLimits(double Min, double Max)
+void SetOutputLimits(float Min, float Max)
 {
    if(Min > Max) return;
    outMin = Min;
@@ -189,44 +197,44 @@ void SetControllerDirection(int Direction)
 
 // Procedure: get_kp
 // Description:
-// Special Notes: Returns double
+// Special Notes: Returns float
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_kp(void)
+float get_kp(void)
 {
   return kp;
 }
 
 // Procedure: get_ki
 // Description:
-// Special Notes: Returns double
+// Special Notes: Returns float
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_ki(void)
+float get_ki(void)
 {
   return ki;
 }
 
 // Procedure: get_kd
 // Description:
-// Special Notes: Returns double
+// Special Notes: Returns float
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_kd(void)
+float get_kd(void)
 {
   return kd;
 }
 
 // Procedure: get_setpoint
 // Description:
-// Special Notes: Returns double
+// Special Notes: Returns float
 //
 // Author:      Mike Brown
 // Last Modified: 2019-06-04
-double get_setpoint(void)
+float get_setpoint(void)
 {
   return Setpoint;
 }
