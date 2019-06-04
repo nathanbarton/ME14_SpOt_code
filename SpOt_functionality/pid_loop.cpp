@@ -72,7 +72,7 @@ void Compute()
 
 
  
- // Procedure:			
+// Procedure:			
 // Description:		sets the values of kp, ki, kd
 // Special Notes:		
 //
@@ -150,17 +150,6 @@ void Initialize()
    else if(ITerm < outMin) ITerm= outMin;
 }
 
-// Procedure:			
-// Description:		
-// Special Notes:		
-//
-// Author:			Brittany Wylie
-// Last Modified:	2019-06-02
-
-void SetControllerDirection(int Direction)
-{
-   controllerDirection = Direction;
-}
 
 // Procedure: get_kp 
 // Description:   
