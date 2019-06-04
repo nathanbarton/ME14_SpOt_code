@@ -28,6 +28,7 @@
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
 #define REFRESH_PERIOD 	  200 //ms
+
 #define MANUAL 0
 #define AUTOMATIC 1
  
@@ -37,11 +38,11 @@
 // Function Prototype Declarations
 void Compute();
 void SetTunings(double Kp, double Ki, double Kd);
-void SetSampleTime(int NewSampleTime);
+
 void SetOutputLimits(double Min, double Max);
 void SetMode(int Mode);
 void Initialize();
-void SetControllerDirection(int Direction);
+
 double get_kp(void);
 double get_ki(void);
 double get_kd(void);
