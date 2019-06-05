@@ -32,7 +32,6 @@ unsigned long lastTime;
 float Input, Output, Setpoint;
 float ITerm, lastInput;
 float kp, ki, kd;
-int SampleTime = 1000; //1 sec
 float outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
