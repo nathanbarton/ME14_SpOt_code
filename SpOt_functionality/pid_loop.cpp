@@ -209,8 +209,3 @@ float get_setpoint(void)
 {
   return Setpoint;
 }
-
-float get_output(void)
-{
-	return Output;
-}
