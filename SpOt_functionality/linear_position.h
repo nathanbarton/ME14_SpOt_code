@@ -32,5 +32,6 @@
 #define MAXIMUM_LENGTH    200   // Maximum Length of ramp
 #define PULSES_PER_ROTATION   16 // Number of pulses registered by encoder for a
 //                                 full rotation
+#define DEGREE_TO_RAD    (PI)/180 // going from degrees to radian
 // Function Prototype Declarations
 float linear_position_get(long Encoder_Position,float Imu_Angle);

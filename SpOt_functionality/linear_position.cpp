@@ -39,5 +39,5 @@ float linear_position_get(long Encoder_Position, float Imu_Angle)
 {
   return ((((((float)Encoder_Position / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
-                         * 2 * PI * SPOOL_RADIUS)-(SPOOL_RADIUS * Imu_Angle));
+                         * 2 * PI * SPOOL_RADIUS)-(SPOOL_RADIUS * Imu_Angle*DEGREE_TO_RAD));
   }
