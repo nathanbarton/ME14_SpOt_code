@@ -62,7 +62,7 @@ float Compute(float currentState)
       float dInput = (Input - lastInput);
 
       /*Compute PID Output*/
-      Output = kp * error + ITerm- kd * dInput;
+      Output = kp * error + ITerm + kd * dInput;
 
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
