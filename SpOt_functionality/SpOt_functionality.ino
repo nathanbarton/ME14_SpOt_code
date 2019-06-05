@@ -26,9 +26,9 @@ void terminal_output(void);         //output data to the serial terminal
 #define BAUD_RATE               115200  //for serial communication
 #define TERMINAL_REFRESH_PERIOD    250  //in ms
 
-#define KP_INITIAL                 0.1  // initial PID gains
-#define KI_INITIAL                 0.1
-#define KD_INITIAL                 0.1
+#define KP_INITIAL                 1.0  // initial PID gains
+#define KI_INITIAL                 1.0
+#define KD_INITIAL                 1.0
 
 #define MAX_CURRENT                50     //percentage of max current allowed
 
@@ -59,6 +59,9 @@ void setup()
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
 
+  //reset kill switch to enable motor driver
+  kill_reset();
+  
   //set up encoder
   encoder_init();
   //initialize encoder position

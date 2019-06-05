@@ -36,9 +36,9 @@
 #define RESET      'r'   // command to activate kill reset
 #define INCREASE_SETPOINT 's'
 #define DECREASE_SETPOINT 'x'
-#define KP_INCREMENT      0.01  // amount to increase/decrease proportional gain
-#define KI_INCREMENT      0.01  // amount to increase/decrease integral gain
-#define KD_INCREMENT      0.01  // amount to increase/decrease derivative gain
+#define KP_INCREMENT      0.1  // amount to increase/decrease proportional gain
+#define KI_INCREMENT      0.1  // amount to increase/decrease integral gain
+#define KD_INCREMENT      0.1  // amount to increase/decrease derivative gain
 #define SETPOINT_INCREMENT 10.0 // amount to increase/decrease setpoint value
 
 // -------------------------------
