@@ -60,7 +60,7 @@ void Setpoint_set(float newpoint){
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Compute()
+float Compute()
 {
    if(!inAuto) return;
    unsigned long now = millis();
@@ -80,9 +80,13 @@ void Compute()
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
 
+
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
+
+      /*Return output*/
+      return Output;
    }
 }
 
