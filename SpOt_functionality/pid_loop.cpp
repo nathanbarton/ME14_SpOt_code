@@ -173,12 +173,14 @@ float get_kp(void)
 
 float get_ki(void)
 {
-  return ki;
+  float SampleTimeInSec = ((float)REFRESH_PERIOD)/1000;
+  return ki / SampleTimeInSec;
 }
 
 float get_kd(void)
 {
-  return kd;
+  float SampleTimeInSec = ((float)REFRESH_PERIOD)/1000;
+  return kd * SampleTimeInSec;
 }
 
 float get_setpoint(void)
