@@ -113,12 +113,6 @@ void SetOutputLimits(float Min, float Max)
    if(Min > Max) return;
    outMin = Min;
    outMax = Max;
-
-   if(Output > outMax) Output = outMax;
-   else if(Output < outMin) Output = outMin;
-
-   if(ITerm > outMax) ITerm= outMax;
-   else if(ITerm < outMin) ITerm= outMin;
 }
 
 // Procedure:
