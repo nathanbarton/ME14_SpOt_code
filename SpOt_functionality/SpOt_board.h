@@ -11,6 +11,7 @@
 //  Revision History:
 //     2019-05-25   Nathan T Barton      Initial revision
 //     2019-05-27   Nathan T Barton      modified code file structure
+//     2019-06-04   Nathan T Barton      added PIN_IMU_INT
 
 //local includes
 #include <arduino.h>
@@ -44,6 +45,11 @@
 // -------------------------------
 #define PIN_ENC_A    5
 #define PIN_ENC_B   10
+
+// -------------------------------
+// IMU Pins
+// -------------------------------
+#define PIN_IMU_INT   13  //imu interrupt pin to MPU-6050 breakout
 
 // -------------------------------
 // User LED Pins
