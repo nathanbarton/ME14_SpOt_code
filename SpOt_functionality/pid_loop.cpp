@@ -31,6 +31,7 @@
 unsigned long lastTime;
 float Input, Output, Setpoint;
 float ITerm, lastInput;
+float lastError;
 float kp, ki, kd;
 float outMin, outMax;
 bool inAuto = false;
@@ -59,10 +60,10 @@ float Compute(float currentState)
       ITerm += (ki * error);
       if(ITerm > outMax) ITerm= outMax;
       else if(ITerm < outMin) ITerm= outMin;
-      float dInput = (Input - lastInput);
+      float dInput = (error - lastError);
 
       /*Compute PID Output*/
-      Output = kp * error + ITerm - kd * dInput;
+      Output = kp * error + ITerm + kd * dInput;
 
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
@@ -70,6 +71,7 @@ float Compute(float currentState)
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
+	  lastError = error;
       /*Returns current state*/
       return Output;
    }
