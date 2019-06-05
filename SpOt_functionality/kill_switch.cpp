@@ -11,6 +11,8 @@
 //  reset()
 //
 #include "kill_switch.h"
+// Global variables
+extern volatile long encoderPosition
 //  Local Variables:
 bool activeState = true;
 //
@@ -39,7 +41,7 @@ void kill(){
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-04
 void kill_reset(){
-  Setpoint_set(linear_position_get());
+  Setpoint_set(linear_position_get(encoderPosition));
   motor_control_enable();
   activeState = true;
 
