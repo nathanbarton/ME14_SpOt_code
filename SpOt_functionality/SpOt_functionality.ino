@@ -35,6 +35,7 @@ void terminal_output(void);         //output data to the serial terminal
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
+extern float IMUAngle
 int motorCurrent = 0;                   //present motor current for output to DRV8840
 float currentPosition = 0;              //current linear position of spool robot (inches)
 
@@ -54,14 +55,14 @@ void setup()
   SetOutputLimits(-MAX_CURRENT, MAX_CURRENT);
 
   //enable the PID controller
-  SetMode(AUTOMATIC, linear_position_get(encoderPosition));
+  SetMode(AUTOMATIC, linear_position_get(encoderPosition,IMUAngle));
 
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
 
   //activate kill switch upon power up
   kill();
-  
+
   //set up encoder
   encoder_init();
   //initialize encoder position
@@ -81,7 +82,7 @@ void loop()
   }
 
   //update current position
-  currentPosition = linear_position_get(encoderPosition);
+  currentPosition = linear_position_get(encoderPosition,IMUAngle);
 
   //run PID loop
   motorCurrent = Compute(currentPosition);

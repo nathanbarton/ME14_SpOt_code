@@ -35,9 +35,9 @@
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-02
 
-float linear_position_get(long Encoder_Position)
+float linear_position_get(long Encoder_Position, float Imu_Angle)
 {
-  return (((((float)Encoder_Position / PULSES_PER_ROTATION)
+  return ((((((float)Encoder_Position / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
-                         * 2 * PI * SPOOL_RADIUS);
+                         * 2 * PI * SPOOL_RADIUS)-(SPOOL_RADIUS * Imu_Angle));
   }
