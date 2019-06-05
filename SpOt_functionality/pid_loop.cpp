@@ -102,25 +102,6 @@ void SetTunings(float Kp, float Ki, float Kd)
 }
 
 // Procedure:
-// Description:		changes the rate of sampling
-// Special Notes:
-//
-// Author:			Brittany Wylie
-// Last Modified:	2019-06-04
-
-void SetSampleTime(int NewSampleTime)
-{
-   if (NewSampleTime > 0)
-   {
-      float ratio  = (float)NewSampleTime
-                      / (float)SampleTime;
-      ki *= ratio;
-      kd /= ratio;
-      SampleTime = (unsigned long)NewSampleTime;
-   }
-}
-
-// Procedure:
 // Description:
 // Special Notes:
 //
