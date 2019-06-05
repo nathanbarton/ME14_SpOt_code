@@ -41,7 +41,7 @@
 #define KP_INCREMENT      0.1  // amount to increase/decrease proportional gain
 #define KI_INCREMENT      0.1  // amount to increase/decrease integral gain
 #define KD_INCREMENT      0.1  // amount to increase/decrease derivative gain
-#define SETPOINT_INCREMENT 1.0 // amount to increase/decrease setpoint value
+#define SETPOINT_INCREMENT 0.1 // amount to increase/decrease setpoint value
 
 // -------------------------------
 // Function Prototype Declarations

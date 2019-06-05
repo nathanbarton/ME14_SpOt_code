@@ -20,7 +20,8 @@
 #include "linear_position.h"
 #include "imu_read.h"
 
-#define USE_IMU
+//uncomment to use IMU data in calculation of linear position
+//#define USE_IMU
 
 //function prototype declarations
 void terminal_output(void);         //output data to the serial terminal
@@ -29,9 +30,9 @@ void terminal_output(void);         //output data to the serial terminal
 #define BAUD_RATE               115200  //for serial communication
 #define TERMINAL_REFRESH_PERIOD    250  //in ms
 
-#define KP_INITIAL                 3.0  // initial PID gains
-#define KI_INITIAL                 1.0
-#define KD_INITIAL                 0.5
+#define KP_INITIAL                 30.0  // initial PID gains
+#define KI_INITIAL                 10.0
+#define KD_INITIAL                 0.2
 
 #define MAX_CURRENT                100     //percentage of max current allowed
 
