@@ -20,7 +20,8 @@
 
 //Local Includes
 #include <arduino.h>
-
+#include "kill_switch.h"
+#include "pid_loop.h"
 
 //Program Constants
 

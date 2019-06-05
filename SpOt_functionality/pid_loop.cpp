@@ -32,24 +32,12 @@ unsigned long lastTime;
 float Input, Output, Setpoint;
 float ITerm, lastInput;
 float kp, ki, kd;
+int SampleTime = 1000; //1 sec
 float outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
 
-// Procedure:	Set the new Setpoint for use in PID Loop
-// Description:		Implements a check at around 50 feet to cap setpoint distance
-// Special Notes:
-//
-// Author:			Maheck Jerez Terceros
-// Last Modified:	2019-06-04
-void Setpoint_set(float newpoint){
-  if(newpoint> 600) {
-    Setpoint = 600;
-  }
-  else{
-   Setpoint = newpoint;
-  }
-}
+
 
  // Procedure:	Call compute at some interval in the
 // main loop to calculate Kp, Kd, Ki values
@@ -59,9 +47,8 @@ void Setpoint_set(float newpoint){
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-float Compute(float currentState)
+void Compute()
 {
-  Input = currentState;
    if(!inAuto) return;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
@@ -80,13 +67,9 @@ float Compute(float currentState)
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
 
-
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
-
-      /*Return output*/
-      return Output;
    }
 }
 
@@ -179,9 +162,8 @@ void SetMode(int Mode)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Initialize(float currentState)
+void Initialize()
 {
-  Input = currentState;
    lastInput = Input;
    ITerm = Output;
    if(ITerm > outMax) ITerm= outMax;
@@ -200,6 +182,21 @@ void SetControllerDirection(int Direction)
    controllerDirection = Direction;
 }
 
+// Procedure:	Set the new Setpoint for use in PID Loop
+// Description:		Implements a check at 50 feet to cap setpoint distance
+// Special Notes:
+//
+// Author:			Maheck Jerez Terceros
+// Last Modified:	2019-06-04
+
+void Setpoint_set(float newpoint){
+  if(newpoint> 600) {
+    Setpoint = 600;    //units are in Inches, 600 in -> 50 ft cap on set point
+  }
+  else{
+   Setpoint = newpoint;
+  }
+}
 //Get functions
 float get_kp(void)
 {

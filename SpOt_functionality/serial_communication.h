@@ -33,7 +33,7 @@
 #define INCREASE_KD 'd'
 #define DECREASE_KD 'f'
 #define KILL       ' '   // command to activate kill switch
-#define RESET      'r'
+#define RESET      'r'   // command to activate kill reset
 #define INCREASE_SETPOINT 's'
 #define DECREASE_SETPOINT 'x'
 #define KP_INCREMENT      0.01  // amount to increase/decrease proportional gain
