@@ -122,12 +122,12 @@ void SetOutputLimits(float Min, float Max)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-04
 
-void SetMode(int Mode)
+void SetMode(int Mode, float currentState)
 {
     bool newAuto = (Mode == AUTOMATIC);
     if(newAuto == !inAuto)
     {  /*we just went from manual to auto*/
-        Initialize();
+        Initialize((float) currentState);
     }
     inAuto = newAuto;
 }
@@ -157,7 +157,7 @@ void Initialize(float currentState)
 
 void Setpoint_set(float newpoint){
   if(newpoint> SETPOINT_CAP) {
-    Setpoint = SETPOINT_CAP;    //units are in Inches, 600 in -> 50 ft cap 
+    Setpoint = SETPOINT_CAP;    //units are in Inches, 600 in -> 50 ft cap
   }
   else{
    Setpoint = newpoint;
