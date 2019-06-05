@@ -35,7 +35,7 @@ void terminal_output(void);         //output data to the serial terminal
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
-extern float IMUAngle
+extern float IMUAngle;                  //updated by IMU code 
 int motorCurrent = 0;                   //present motor current for output to DRV8840
 float currentPosition = 0;              //current linear position of spool robot (inches)
 
