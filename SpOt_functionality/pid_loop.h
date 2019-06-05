@@ -36,7 +36,7 @@
 #define REVERSE 1
 
 // Function Prototype Declarations
-float Compute();
+float Compute(float currentState);
 void SetTunings(float Kp, float Ki, float Kd);
 void Setpoint_set(float newpoint);
 void SetOutputLimits(float Min, float Max);
