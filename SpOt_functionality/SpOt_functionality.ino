@@ -68,6 +68,9 @@ void setup()
   //initialize encoder position
   encoder_position_set(0);
 
+  //initialize the IMU
+  imu_init();
+
 }
 
 
@@ -83,6 +86,9 @@ void loop()
 
   //update current position
   currentPosition = linear_position_get(encoderPosition,get_angle());
+
+  //read angle from IMU
+  read_angle();
 
   //run PID loop
   motorCurrent = Compute(currentPosition);
