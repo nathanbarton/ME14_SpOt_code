@@ -46,31 +46,37 @@ void parse_serial(char serialValue)
     {
       //increase proportional gain
   	  kp += KP_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == DECREASE_KP)
     {
       //decrease proportional gain
   	  kp -= KP_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == INCREASE_KI)
     {
       //increase integral gain
   	  ki += KI_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == DECREASE_KI)
     {
       //decrease integral gain
   	  ki -= KI_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == INCREASE_KD)
     {
       //increase derivative gain
   	  kd += KD_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == DECREASE_KD)
     {
       //decrease derivative gain
   	  kd -= KD_INCREMENT;
+      SetTunings(kp, ki, kd);
     }
     if(serialValue == KILL)
     {
@@ -86,13 +92,15 @@ void parse_serial(char serialValue)
     {
       //increase derivative gain
       setpoint += SETPOINT_INCREMENT;
+      Setpoint_set(setpoint);
     }
     if(serialValue == DECREASE_SETPOINT)
     {
       //decrease derivative gain
       setpoint -= SETPOINT_INCREMENT;
+      Setpoint_set(setpoint);
     }
 
-    SetTunings(kp, ki, kd);
+
 
 }
