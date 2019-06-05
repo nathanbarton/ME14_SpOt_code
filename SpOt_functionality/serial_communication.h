@@ -9,10 +9,8 @@
 //		parse_serial - Read communication from the serial port
 //
 //  The public variables are:
-//    kp, ki, kd (double) - Gain values for the P, I, and D terms, respectively.
-//    Setpoint (double) - Desired setpoint for the PID loop.
 //
-//  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
+//  Known Bugs/Limitations:	
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision

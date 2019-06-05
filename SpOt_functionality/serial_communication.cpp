@@ -8,11 +8,9 @@
 //  The public functions are:
 //		parse_serial - Read communication from the serial port
 //
-//  The public variables are:
-//    kp, ki, kd (double) - Gain values for the P, I, and D terms, respectively.
-//    Setpoint (double) - Desired setpoint for the PID loop.
+//  The public variables are: None
 //
-//  Known Bugs/Limitations:	What if String is passed into parse_serial instead of char?
+//  Known Bugs/Limitations:	
 //
 //  Revision History:
 //     2019-06-03   Mike Brown      Initial revision
@@ -36,47 +34,67 @@
 // Last Modified:	2019-06-04
 void parse_serial(char serialValue)
 {
-    // change function names below when get functions are added in pid_loop.cpp
-    float setpoint = get_setpoint();
-    float kp = get_kp();
-    float ki = get_ki();
-    float kd = get_kd();
-
     if(serialValue == INCREASE_KP)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //increase proportional gain
   	  kp += KP_INCREMENT;
       SetTunings(kp, ki, kd);
+      
     }
     if(serialValue == DECREASE_KP)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //decrease proportional gain
   	  kp -= KP_INCREMENT;
       SetTunings(kp, ki, kd);
     }
     if(serialValue == INCREASE_KI)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //increase integral gain
   	  ki += KI_INCREMENT;
       SetTunings(kp, ki, kd);
     }
     if(serialValue == DECREASE_KI)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //decrease integral gain
   	  ki -= KI_INCREMENT;
       SetTunings(kp, ki, kd);
     }
     if(serialValue == INCREASE_KD)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //increase derivative gain
   	  kd += KD_INCREMENT;
       SetTunings(kp, ki, kd);
     }
     if(serialValue == DECREASE_KD)
     {
+      float kp = get_kp();
+      float ki = get_ki();
+      float kd = get_kd();
+
       //decrease derivative gain
   	  kd -= KD_INCREMENT;
       SetTunings(kp, ki, kd);
+
     }
     if(serialValue == KILL)
     {
@@ -90,17 +108,19 @@ void parse_serial(char serialValue)
     }
     if(serialValue == INCREASE_SETPOINT)
     {
+      float setpoint = get_setpoint();
+  
       //increase derivative gain
       setpoint += SETPOINT_INCREMENT;
       Setpoint_set(setpoint);
     }
     if(serialValue == DECREASE_SETPOINT)
     {
+      float setpoint = get_setpoint();
+  
       //decrease derivative gain
       setpoint -= SETPOINT_INCREMENT;
       Setpoint_set(setpoint);
     }
-
-
 
 }
