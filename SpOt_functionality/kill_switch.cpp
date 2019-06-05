@@ -12,8 +12,8 @@
 //
 #include "kill_switch.h"
 // Global variables
-extern volatile long encoderPosition
-extern float IMUAngle
+extern volatile long encoderPosition;
+extern float IMUAngle;
 //  Local Variables:
 bool activeState = true;
 //
@@ -30,6 +30,7 @@ bool activeState = true;
 void kill(){
   set_motor_current(0);
   motor_control_disable();
+  SetMode(MANUAL, linear_position_get(encoderPosition, IMUAngle));
   activeState = false;
 }
 
@@ -44,6 +45,7 @@ void kill(){
 void kill_reset(){
   Setpoint_set(linear_position_get(encoderPosition, IMUAngle));
   motor_control_enable();
+  SetMode(AUTOMATIC, linear_position_get(encoderPosition, IMUAngle));
   activeState = true;
 
 }
