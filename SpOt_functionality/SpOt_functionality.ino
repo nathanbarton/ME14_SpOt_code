@@ -17,12 +17,16 @@
 #include "pid_loop.h"
 #include "serial_communication.h"
 
+//function prototype declarations
+void terminal_output(void);         //output data to the serial terminal
+
 //global constants
 #define BAUD_RATE               115200  //for serial communication
-#define SCREEN_REFRESH_PERIOD   250     //in ms
+#define TERMINAL_REFRESH_PERIOD    250  //in ms
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
+
 
 
 
@@ -59,4 +63,13 @@ void loop()
 
 
   
+}
+
+void terminal_output(void)
+{
+  //clear the screen
+  Serial1.print("\033[2J");
+  //output current state
+  Serial1.print("motor current: ");
+  Serial1.print(get_output());
 }
