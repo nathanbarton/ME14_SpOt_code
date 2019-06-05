@@ -122,5 +122,10 @@ void parse_serial(char serialValue)
       setpoint -= SETPOINT_INCREMENT;
       Setpoint_set(setpoint);
     }
+	if(serialValue == IMU_CALIBRATE)
+    {
+      imu_calibrate();
+    }
+	
 
 }

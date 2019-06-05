@@ -36,6 +36,7 @@
 #define RESET      'r'   // command to activate kill reset
 #define INCREASE_SETPOINT 's'
 #define DECREASE_SETPOINT 'x'
+#define IMU_CALIBRATE	'c'
 #define KP_INCREMENT      0.1  // amount to increase/decrease proportional gain
 #define KI_INCREMENT      0.1  // amount to increase/decrease integral gain
 #define KD_INCREMENT      0.1  // amount to increase/decrease derivative gain

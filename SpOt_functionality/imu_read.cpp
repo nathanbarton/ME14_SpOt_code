@@ -19,6 +19,8 @@
 
 MPU6050 mpu6050(Wire);
 
+float imu_cal = 0;
+
 /*
 bool blinkState = false;
 
@@ -169,6 +171,14 @@ void read_angle(void) {
 // get functions
 float get_angle(void) {
 
-	return mpu6050.getAngleX() * (-1);
+	return (mpu6050.getAngleX() - imu_cal) * (-1);
 
 }
+
+void imu_calibrate()
+{
+	imu_cal = mpu6050.getAngleX();
+}
+
+
+

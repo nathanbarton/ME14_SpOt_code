@@ -47,3 +47,4 @@
 void read_angle(void);
 float get_angle(void);
 void imu_init(void);
+void imu_calibrate();

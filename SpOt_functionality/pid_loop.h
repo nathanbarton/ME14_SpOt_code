@@ -26,7 +26,7 @@
 #define KP_INCREMENT      0.01
 #define KI_INCREMENT      0.01
 #define KD_INCREMENT      0.01
-#define REFRESH_PERIOD 	  10 //ms
+#define REFRESH_PERIOD 	  20 //ms
 #define SETPOINT_CAP      600 //inches -> 50 ft
 
 #define MANUAL 0
