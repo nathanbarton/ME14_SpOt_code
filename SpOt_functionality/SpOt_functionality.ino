@@ -16,6 +16,7 @@
 #include "encoder_position.h"
 #include "pid_loop.h"
 #include "serial_communication.h"
+#include "kill_switch.h"
 
 //function prototype declarations
 void terminal_output(void);         //output data to the serial terminal
@@ -26,7 +27,10 @@ void terminal_output(void);         //output data to the serial terminal
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
-int motorCurrent = 0;                   //present motor current for output to DRV8840 
+int motorCurrent = 0;                   //present motor current for output to DRV8840
+
+unsigned long lastTerminalRefreshTime = 0;  //time since terminal output has been refreshed
+
 
 
 
@@ -59,10 +63,15 @@ void loop()
     parse_serial(serialValue);
   }
 
-
-
-
-
+  //check if time to refresh the terminal output
+  if(millis()-lastTerminalRefreshTime >= TERMINAL_REFRESH_PERIOD)
+  {
+    //update timer
+    lastTerminalRefreshTime += TERMINAL_REFRESH_PERIOD;
+    //output to terminal
+    terminal_output();
+  }
+  
   
 }
 
