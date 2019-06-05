@@ -181,8 +181,8 @@ void Initialize(float currentState)
 // Last Modified:	2019-06-04
 
 void Setpoint_set(float newpoint){
-  if(newpoint> 600) {
-    Setpoint = 600;    //units are in Inches, 600 in -> 50 ft cap on set point
+  if(newpoint> SETPOINT_CAP) {
+    Setpoint = SETPOINT_CAP;    //units are in Inches, 600 in -> 50 ft cap 
   }
   else{
    Setpoint = newpoint;
