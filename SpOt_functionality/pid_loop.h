@@ -9,10 +9,10 @@
 // a linear position.
 //
 //  The public functions are:
-//    	  get_kp - return the current kp value (returns double)
-//        get_ki - return the current ki value (returns double)
-//        get_kd - return the current kd value (returns double)
-//        get_setpoint - return the current setpoint value (returns double)
+//    	  get_kp - return the current kp value (returns float)
+//        get_ki - return the current ki value (returns float)
+//        get_kd - return the current kd value (returns float)
+//        get_setpoint - return the current setpoint value (returns float)
 //
 //  Global Variables:
 //
@@ -36,14 +36,14 @@
 #define REVERSE 1
 
 // Function Prototype Declarations
-void Compute();
-void SetTunings(double Kp, double Ki, double Kd);
+float Compute();
+void SetTunings(float Kp, float Ki, float Kd);
 void Setpoint_set(float newpoint);
-void SetOutputLimits(double Min, double Max);
+void SetOutputLimits(float Min, float Max);
 void SetMode(int Mode);
 void Initialize();
 
-double get_kp(void);
-double get_ki(void);
-double get_kd(void);
-double get_setpoint(void);
+float get_kp(void);
+float get_ki(void);
+float get_kd(void);
+float get_setpoint(void);
