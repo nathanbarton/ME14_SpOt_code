@@ -171,7 +171,7 @@ void read_angle(void) {
 // get functions
 float get_angle(void) {
 
-	return (mpu6050.getAngleX() - imu_cal) * (-1);
+	return (mpu6050.getAngleX() - imu_cal) * (-2);
 
 }
 
