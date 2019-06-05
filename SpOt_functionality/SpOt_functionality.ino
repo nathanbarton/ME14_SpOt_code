@@ -25,6 +25,9 @@ void terminal_output(void);         //output data to the serial terminal
 //global constants
 #define BAUD_RATE               115200  //for serial communication
 #define TERMINAL_REFRESH_PERIOD    250  //in ms
+#define KP_INITIAL                 0.1  // initial PID gains
+#define KI_INITIAL                 0.1
+#define KD_INITIAL                 0.1
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
@@ -34,15 +37,14 @@ float currentPosition = 0;              //current linear position of spool robot
 unsigned long lastTerminalRefreshTime = 0;  //time since terminal output has been refreshed
 
 
-
-
-
-
 void setup()
 {
   //initialize motor controller
   motor_control_init();    //initialize pins
   set_motor_current(motorCurrent);  //set motor current to 0 initially
+
+  // set initial PID gain values
+  SetTunings(KP_INITIAL, KI_INITIAL, KD_INITIAL);
 
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
