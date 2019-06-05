@@ -32,7 +32,6 @@ unsigned long lastTime;
 float Input, Output, Setpoint;
 float ITerm, lastInput;
 float kp, ki, kd;
-int SampleTime = 1000; //1 sec
 float outMin, outMax;
 bool inAuto = false;
 int controllerDirection = DIRECT;
@@ -60,8 +59,9 @@ void Setpoint_set(float newpoint){
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Compute()
+float Compute(float currentState)
 {
+  Input = currentState;
    if(!inAuto) return;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
@@ -80,9 +80,13 @@ void Compute()
       if(Output > outMax) Output = outMax;
       else if(Output < outMin) Output = outMin;
 
+
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
+
+      /*Return output*/
+      return Output;
    }
 }
 
@@ -175,8 +179,9 @@ void SetMode(int Mode)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Initialize()
+void Initialize(float currentState)
 {
+  Input = currentState;
    lastInput = Input;
    ITerm = Output;
    if(ITerm > outMax) ITerm= outMax;
