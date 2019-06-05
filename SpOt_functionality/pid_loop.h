@@ -40,8 +40,8 @@ float Compute(float currentState);
 void SetTunings(float Kp, float Ki, float Kd);
 void Setpoint_set(float newpoint);
 void SetOutputLimits(float Min, float Max);
-void SetMode(int Mode);
 void Initialize(float currentState);
+void SetMode(int Mode, float currentState);
 void Setpoint_set(float newpoint);
 
 float get_kp(void);
