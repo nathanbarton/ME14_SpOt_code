@@ -166,6 +166,7 @@ void SetMode(int Mode)
 
 void Initialize(float currentState)
 {
+   Input = currentState;
    lastInput = Input;
    ITerm = Output;
    if(ITerm > outMax) ITerm= outMax;
