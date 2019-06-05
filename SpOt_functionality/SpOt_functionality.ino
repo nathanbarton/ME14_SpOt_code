@@ -28,6 +28,7 @@ void terminal_output(void);         //output data to the serial terminal
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
 int motorCurrent = 0;                   //present motor current for output to DRV8840
+float currentPosition = 0;              //current linear position of spool robot (inches)
 
 unsigned long lastTerminalRefreshTime = 0;  //time since terminal output has been refreshed
 
@@ -63,6 +64,15 @@ void loop()
     parse_serial(serialValue);
   }
 
+  //update current position
+  currentPosition = linear_position_get();
+
+  //run PID loop
+  motorCurrent = Compute(currentPosition);
+
+  //output to DRV8840
+  set_motor_current(motorCurrent);
+
   //check if time to refresh the terminal output
   if(millis()-lastTerminalRefreshTime >= TERMINAL_REFRESH_PERIOD)
   {
@@ -79,10 +89,18 @@ void terminal_output(void)
 {
   //clear the screen
   Serial1.print("\033[2J");
-  //output current state
+  
+  //output current robot state
   Serial1.print("motor current: ");
   Serial1.print(motorCurrent);
   Serial1.print("\r\n");
+  Serial1.print("current position: ");
+  Serial1.print(currentPosition);
+  Serial1.print("\r\n");
+  Serial1.print("Position Setpoint: ");
+  Serial1.print(get_setpoint());
+  Serial1.print("\r\n");
+  
   //output PID tuning values
   Serial1.print("Kp: ");
   Serial1.print(get_kp());
@@ -93,6 +111,7 @@ void terminal_output(void)
   Serial1.print("Kd: ");
   Serial1.print(get_kd());
   Serial1.print("\r\n");
+  
   //output kill switch state
   Serial1.print("Kill switch state: ");
   Serial1.print(get_activeState());
