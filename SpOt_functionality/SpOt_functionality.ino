@@ -26,6 +26,8 @@ void terminal_output(void);         //output data to the serial terminal
 
 //global variables
 extern volatile long encoderPosition;   //updated by ISR in encoder_position file
+int motorCurrent = 0;                   //present motor current for output to DRV8840 
+
 
 
 
@@ -35,7 +37,6 @@ void setup()
   //initialize motor controller
   motor_control_init();    //initialize pins
   set_motor_current(motorCurrent);  //set motor current to 0 initially
-  motor_control_enable();
 
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
@@ -71,5 +72,21 @@ void terminal_output(void)
   Serial1.print("\033[2J");
   //output current state
   Serial1.print("motor current: ");
-  Serial1.print(get_output());
+  Serial1.print(motorCurrent);
+  Serial1.print("\r\n");
+  //output PID tuning values
+  Serial1.print("Kp: ");
+  Serial1.print(get_kp());
+  Serial1.print("\r\n");
+  Serial1.print("Ki: ");
+  Serial1.print(get_ki());
+  Serial1.print("\r\n");
+  Serial1.print("Kd: ");
+  Serial1.print(get_kd());
+  Serial1.print("\r\n");
+  //output kill switch state
+  Serial1.print("Kill switch state: ");
+  Serial1.print(get_activeState());
+  Serial1.print("\r\n");
+  
 }
