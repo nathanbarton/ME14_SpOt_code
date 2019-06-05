@@ -17,8 +17,11 @@
 //  Revision History:
 //     2019-05-28   Maheck Jerez Terceros      Initial revision
 
+#include "motor_control.h"
+#include "pid_loop.h"
+#include "linear_position.h"
 
 //public functions
 void kill_reset();
 void kill();
-voide get_activeState();
+bool get_activeState();

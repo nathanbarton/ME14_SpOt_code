@@ -39,12 +39,12 @@ void kill(){
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-04
 void kill_reset(){
-  Setpoint_set(linear_position_get())
+  Setpoint_set(linear_position_get());
   motor_control_enable();
   activeState = true;
 
 }
 
-void get_activeState(){
-  return activeState
+bool get_activeState(){
+  return activeState;
 }

@@ -17,6 +17,7 @@
 #include "pid_loop.h"
 #include "serial_communication.h"
 #include "kill_switch.h"
+#include "linear_position.h"
 
 //function prototype declarations
 void terminal_output(void);         //output data to the serial terminal

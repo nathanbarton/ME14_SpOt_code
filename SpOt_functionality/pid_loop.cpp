@@ -49,7 +49,7 @@ int controllerDirection = DIRECT;
 float Compute(float currentState)
 {
    Input = currentState;
-   if(!inAuto) return;
+   if(!inAuto) return 0;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
    if(timeChange>=SampleTime)

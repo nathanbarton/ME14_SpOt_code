@@ -21,6 +21,8 @@
 //local includes
 #include <arduino.h>
 #include "SpOt_board.h"
+#include "pid_loop.h"
+#include "kill_switch.h"
 
 // -------------------------------
 // Program Constants

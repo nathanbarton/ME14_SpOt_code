@@ -35,7 +35,7 @@ extern volatile long encoderPosition; //current pulse count
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-02
 
-void linear_position_get()
+float linear_position_get()
 {
   return (((((float)encoderPosition / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
