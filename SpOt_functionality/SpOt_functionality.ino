@@ -18,6 +18,7 @@
 #include "serial_communication.h"
 #include "kill_switch.h"
 #include "linear_position.h"
+#include "imu_read.h"
 
 //function prototype declarations
 void terminal_output(void);         //output data to the serial terminal
@@ -48,6 +49,9 @@ void setup()
   motor_control_init();    //initialize pins
   set_motor_current(motorCurrent);  //set motor current to 0 initially
 
+  //initialize the IMU
+  imu_init();
+
   // set initial PID gain values
   SetTunings(KP_INITIAL, KI_INITIAL, KD_INITIAL);
 
@@ -55,7 +59,7 @@ void setup()
   SetOutputLimits(-MAX_CURRENT, MAX_CURRENT);
 
   //enable the PID controller
-  SetMode(AUTOMATIC, linear_position_get(encoderPosition,get_angle()));
+  //SetMode(AUTOMATIC, linear_position_get(encoderPosition,get_angle()));
 
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
@@ -67,9 +71,6 @@ void setup()
   encoder_init();
   //initialize encoder position
   encoder_position_set(0);
-
-  //initialize the IMU
-  imu_init();
 
 }
 
@@ -116,6 +117,9 @@ void terminal_output(void)
   //output current robot state
   Serial1.print("motor current: ");
   Serial1.print(motorCurrent);
+  Serial1.print("\r\n");
+  Serial1.print("IMU angle: ");
+  Serial1.print(get_angle());
   Serial1.print("\r\n");
   Serial1.print("current position: ");
   Serial1.print(currentPosition);

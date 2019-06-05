@@ -20,6 +20,7 @@
 #include "motor_control.h"
 #include "pid_loop.h"
 #include "linear_position.h"
+#include "imu_read.h"
 
 //public functions
 void kill_reset();
