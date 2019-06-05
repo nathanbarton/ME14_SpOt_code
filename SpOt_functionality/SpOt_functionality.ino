@@ -97,7 +97,10 @@ void loop()
   
 
   //read angle from IMU
-  read_angle();
+  #ifdef USE_IMU
+    read_angle();
+  #endif
+  
 
   //run PID loop
   motorCurrent = Compute(currentPosition);
@@ -126,9 +129,13 @@ void terminal_output(void)
   Serial1.print("motor current: ");
   Serial1.print(motorCurrent);
   Serial1.print("\r\n");
+
+  #ifdef USE_IMU
   Serial1.print("IMU angle: ");
   Serial1.print(get_angle());
   Serial1.print("\r\n");
+  #endif
+  
   Serial1.print("current position: ");
   Serial1.print(currentPosition);
   Serial1.print("\r\n");
