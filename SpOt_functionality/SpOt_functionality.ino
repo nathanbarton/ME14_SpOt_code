@@ -5,7 +5,7 @@
 // ----------------------------------------
 // This program demonstrates the control loop functionality of the SpOt robot for
 //    ME14.  The program sets the linear position setpoint based on serial input received
-//    from an HC-05 bluetooth module.  
+//    from an HC-05 bluetooth module.
 //
 //
 //  Revision History:
@@ -46,12 +46,12 @@ void setup()
 
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
-  
+
   //set up encoder
   encoder_init();
   //initialize encoder position
   encoder_position_set(0);
-  
+
 }
 
 
@@ -66,7 +66,7 @@ void loop()
   }
 
   //update current position
-  currentPosition = linear_position_get();
+  currentPosition = linear_position_get(encoderPosition);
 
   //run PID loop
   motorCurrent = Compute(currentPosition);
@@ -82,15 +82,15 @@ void loop()
     //output to terminal
     terminal_output();
   }
-  
-  
+
+
 }
 
 void terminal_output(void)
 {
   //clear the screen
   Serial1.print("\033[2J");
-  
+
   //output current robot state
   Serial1.print("motor current: ");
   Serial1.print(motorCurrent);
@@ -101,7 +101,7 @@ void terminal_output(void)
   Serial1.print("Position Setpoint: ");
   Serial1.print(get_setpoint());
   Serial1.print("\r\n");
-  
+
   //output PID tuning values
   Serial1.print("Kp: ");
   Serial1.print(get_kp());
@@ -112,10 +112,10 @@ void terminal_output(void)
   Serial1.print("Kd: ");
   Serial1.print(get_kd());
   Serial1.print("\r\n");
-  
+
   //output kill switch state
   Serial1.print("Kill switch state: ");
   Serial1.print(get_activeState());
   Serial1.print("\r\n");
-  
+
 }

@@ -20,12 +20,12 @@
 //  Revision History:
 //     2019-06-02   Maheck Jerez Terceros      Initial revision
 //     2019-06-03   Maheck Jerez Terceros      Legibility changes
-//     2019-06-03   Maheck Jerez Terceros      get function changes
+//     2019-06-04   Maheck Jerez Terceros      get function changes
+//     2019-06-04   Maheck Jerez Terceros      get function is now handed encoder pos
 
 //Local Includes
 #include "linear_position.h"
-// Global Variables
-extern volatile long encoderPosition; //current pulse count
+
 
 
 // Procedure:			linear_position_set
@@ -35,9 +35,9 @@ extern volatile long encoderPosition; //current pulse count
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-02
 
-float linear_position_get()
+float linear_position_get(long Encoder_Position)
 {
-  return (((((float)encoderPosition / PULSES_PER_ROTATION)
+  return ((((Encoder_Position / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
                          * 2 * PI * SPOOL_RADIUS);
   }
