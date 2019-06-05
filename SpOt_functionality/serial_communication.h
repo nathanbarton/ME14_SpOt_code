@@ -21,6 +21,7 @@
 #include "SpOt_board.h"
 #include "pid_loop.h"
 #include "kill_switch.h"
+#include "imu_read.h"
 
 // -------------------------------
 // Program Constants

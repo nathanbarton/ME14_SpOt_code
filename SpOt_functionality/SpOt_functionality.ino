@@ -20,6 +20,8 @@
 #include "linear_position.h"
 #include "imu_read.h"
 
+#define USE_IMU
+
 //function prototype declarations
 void terminal_output(void);         //output data to the serial terminal
 
@@ -86,7 +88,12 @@ void loop()
   }
 
   //update current position
-  currentPosition = linear_position_get(encoderPosition,get_angle());
+  #ifdef USE_IMU
+    currentPosition = linear_position_get(encoderPosition, get_angle());
+  #else
+    currentPosition = linear_position_get(encoderPosition);
+  #endif
+  
 
   //read angle from IMU
   read_angle();

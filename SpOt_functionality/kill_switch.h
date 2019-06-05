@@ -20,7 +20,9 @@
 #include "motor_control.h"
 #include "pid_loop.h"
 #include "linear_position.h"
+#ifdef USE_IMU
 #include "imu_read.h"
+#endif
 
 //public functions
 void kill_reset();

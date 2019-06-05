@@ -34,4 +34,5 @@
 //                                 full rotation
 #define DEGREE_TO_RAD    (PI)/180 // going from degrees to radian
 // Function Prototype Declarations
+float linear_position_get(long Encoder_Position);
 float linear_position_get(long Encoder_Position,float Imu_Angle);

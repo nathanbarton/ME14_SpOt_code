@@ -30,7 +30,11 @@ bool activeState = true;
 void kill(){
   set_motor_current(0);
   motor_control_disable();
-  SetMode(MANUAL, linear_position_get(encoderPosition, get_angle()));
+  #ifdef USE_IMU
+    SetMode(MANUAL, linear_position_get(encoderPosition, get_angle()));
+  #else
+    SetMode(MANUAL, linear_position_get(encoderPosition));
+  #endif
   activeState = false;
 }
 
@@ -43,9 +47,22 @@ void kill(){
 // Author:			Maheck Jerez Terceros
 // Last Modified:	2019-06-04
 void kill_reset(){
-  Setpoint_set(linear_position_get(encoderPosition, get_angle()));
+
+  #ifdef USE_IMU
+    SetMode(MANUAL, linear_position_get(encoderPosition, get_angle()));
+  #else
+    Setpoint_set(linear_position_get(encoderPosition));
+  #endif
+  
   motor_control_enable();
-  SetMode(AUTOMATIC, linear_position_get(encoderPosition, get_angle()));
+
+  #ifdef USE_IMU
+    SetMode(AUTOMATIC, linear_position_get(encoderPosition, get_angle()));
+  #else
+    SetMode(AUTOMATIC, linear_position_get(encoderPosition));
+  #endif
+  
+  
   activeState = true;
 
 }
