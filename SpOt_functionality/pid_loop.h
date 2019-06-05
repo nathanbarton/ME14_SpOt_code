@@ -41,7 +41,7 @@ void SetTunings(float Kp, float Ki, float Kd);
 void Setpoint_set(float newpoint);
 void SetOutputLimits(float Min, float Max);
 void SetMode(int Mode);
-void Initialize();
+void Initialize(float currentState);
 
 float get_kp(void);
 float get_ki(void);
