@@ -20,7 +20,8 @@
 
 //Local Includes
 #include <arduino.h>
-
+#include "kill_switch.h"
+#include "pid_loop.h"
 
 //Program Constants
 
@@ -42,6 +43,7 @@ void Setpoint_set(float newpoint);
 void SetOutputLimits(float Min, float Max);
 void SetMode(int Mode);
 void Initialize(float currentState);
+void Setpoint_set(float newpoint);
 
 float get_kp(void);
 float get_ki(void);
