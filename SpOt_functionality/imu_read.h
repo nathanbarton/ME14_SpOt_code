@@ -17,27 +17,29 @@
 
 //local includes
 #include <arduino.h>
-#include "I2Cdev.h"
-#include "MPU6050_6Axis_MotionApps20.h"
+//#include "I2Cdev.h"
+//#include "MPU6050_6Axis_MotionApps20.h"
 #include "SpOt_board.h"
+#include <MPU6050_tockn.h>
+#include <Wire.h>
 
 //#define I2CDEV_IMPLEMENTATION I2CDEV_ARDUINO_WIRE
 
-#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-#include "Wire.h"
-#endif
+//#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+//#include "Wire.h"
+//#endif
 
 // -------------------------------
 // Program Constants
 // -------------------------------
-#define INTERRUPT_PIN PIN_IMU_INT // pin number for the IMU's interrupt pin
+//#define INTERRUPT_PIN PIN_IMU_INT // pin number for the IMU's interrupt pin
 #define ANGLE_INDEX    1 // index value of the angle in the yaw, pitch, roll array
 						 // set 1 for pitch, and 2 for roll
 
-#define X_GYRO_OFFSET  220  // offsets for IMU, from IMU calibration
-#define Y_GYRO_OFFSET  76 
-#define Z_GYRO_OFFSET  -85
-#define Z_ACCEL_OFFSET 1788 
+//#define X_GYRO_OFFSET  220  // offsets for IMU, from IMU calibration
+//#define Y_GYRO_OFFSET  76 
+//#define Z_GYRO_OFFSET  -85
+//#define Z_ACCEL_OFFSET 1788 
 
 // -------------------------------
 // Function Prototype Declarations

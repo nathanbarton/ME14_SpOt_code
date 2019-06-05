@@ -17,8 +17,9 @@
 
 #include "imu_read.h"
 
-MPU6050 mpu;
+MPU6050 mpu6050(Wire);
 
+/*
 bool blinkState = false;
 
 // MPU control/status vars
@@ -45,6 +46,7 @@ float angle = 0.0;
 void dmpDataReady(void) {
   mpuInterrupt = true;
 }
+*/
 
 // --------------------------------------------------------------------------------
 // Procedure:			imu_init
@@ -59,7 +61,10 @@ void dmpDataReady(void) {
 // Author:			Mike Brown
 // Last Modified:	2019-06-04
 void imu_init(void) {
-
+  Wire.begin();
+  mpu6050.begin();
+  mpu6050.calcGyroOffsets(true);
+/*
 	// set the interrupt pin as an input
 	pinMode(INTERRUPT_PIN, INPUT);
  
@@ -99,7 +104,7 @@ void imu_init(void) {
       packetSize = mpu.dmpGetFIFOPacketSize();
     }
 
-
+*/
 }
 
   
@@ -117,8 +122,8 @@ void imu_init(void) {
 // Author:			Mike Brown
 // Last Modified:	2019-06-04
 void read_angle(void) {
-
-
+  mpu6050.update();
+/*
   // check if interrupt is flagged
   if(mpuInterrupt || fifoCount >= packetSize) {
   
@@ -157,12 +162,13 @@ void read_angle(void) {
 	    
 	  }
   }
+  */
 
 }
 
 // get functions
 float get_angle(void) {
 
-	return angle;
+	return mpu6050.getAngleX();
 
 }
