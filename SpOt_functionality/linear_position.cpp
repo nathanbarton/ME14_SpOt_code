@@ -37,7 +37,7 @@
 
 float linear_position_get(long Encoder_Position)
 {
-  return ((((Encoder_Position / PULSES_PER_ROTATION)
+  return (((((float)Encoder_Position / PULSES_PER_ROTATION)
                         /INTERNAL_MOTOR_GEARING)/PULLEY_GEAR_RATIO)
                          * 2 * PI * SPOOL_RADIUS);
   }
