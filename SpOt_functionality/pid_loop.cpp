@@ -46,8 +46,9 @@ int controllerDirection = DIRECT;
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Compute()
+float Compute(float currentState)
 {
+   Input = currentState;
    if(!inAuto) return;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
@@ -69,6 +70,8 @@ void Compute()
       /*Remember some variables for next time*/
       lastInput = Input;
       lastTime = now;
+      /*Returns current state*/
+      return Output;
    }
 }
 
@@ -161,24 +164,12 @@ void SetMode(int Mode)
 // Author:			Brittany Wylie
 // Last Modified:	2019-06-02
 
-void Initialize()
+void Initialize(float currentState)
 {
    lastInput = Input;
    ITerm = Output;
    if(ITerm > outMax) ITerm= outMax;
    else if(ITerm < outMin) ITerm= outMin;
-}
-
-// Procedure:
-// Description:
-// Special Notes:
-//
-// Author:			Brittany Wylie
-// Last Modified:	2019-06-02
-
-void SetControllerDirection(int Direction)
-{
-   controllerDirection = Direction;
 }
 
 // Procedure:	Set the new Setpoint for use in PID Loop
@@ -196,6 +187,8 @@ void Setpoint_set(float newpoint){
    Setpoint = newpoint;
   }
 }
+
+
 //Get functions
 float get_kp(void)
 {
