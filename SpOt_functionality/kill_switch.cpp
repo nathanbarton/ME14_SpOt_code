@@ -12,7 +12,7 @@
 //
 #include "kill_switch.h"
 // Global variables
-extern volatile long encoderPosition
+extern volatile long encoderPosition;
 //  Local Variables:
 bool activeState = true;
 //
