@@ -52,7 +52,7 @@ float Compute(float currentState)
    if(!inAuto) return 0;
    unsigned long now = millis();
    int timeChange = (now - lastTime);
-   if(timeChange>=SampleTime)
+   if(timeChange>=REFRESH_PERIOD)
    {
       /*Compute all the working error variables*/
       float error = Setpoint - Input;
@@ -88,7 +88,7 @@ void SetTunings(float Kp, float Ki, float Kd)
 {
    if (Kp<0 || Ki<0|| Kd<0) return;
 
-  float SampleTimeInSec = ((float)SampleTime)/1000;
+  float SampleTimeInSec = ((float)REFRESH_PERIOD)/1000;
    kp = Kp;
    ki = Ki * SampleTimeInSec;
    kd = Kd / SampleTimeInSec;
