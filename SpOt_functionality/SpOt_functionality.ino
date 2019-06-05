@@ -30,7 +30,7 @@ void terminal_output(void);         //output data to the serial terminal
 #define KI_INITIAL                 1.0
 #define KD_INITIAL                 1.0
 
-#define MAX_CURRENT                50     //percentage of max current allowed
+#define MAX_CURRENT                100     //percentage of max current allowed
 
 
 //global variables
@@ -59,8 +59,8 @@ void setup()
   //initialize serial peripheral
   Serial1.begin(BAUD_RATE);
 
-  //reset kill switch to enable motor driver
-  kill_reset();
+  //activate kill switch upon power up
+  kill();
   
   //set up encoder
   encoder_init();
